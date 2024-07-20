@@ -4,9 +4,9 @@ import {
   ScrollView,
   useWindowDimensions,
   View,
-  type LayoutChangeEvent,
-  type LayoutRectangle,
-  type ViewStyle,
+  LayoutChangeEvent,
+  LayoutRectangle,
+  ViewStyle,
 } from 'react-native';
 import { Menu, TextInput, TouchableRipple } from 'react-native-paper';
 import DropdownInput from './dropdown-input';

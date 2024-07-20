@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { ScrollView, StyleSheet, View, type ViewStyle } from 'react-native';
+import { ScrollView, StyleSheet, View, ViewStyle } from 'react-native';
 import {
   Appbar,
   Divider,
@@ -15,8 +15,8 @@ import {
 import {
   Dropdown,
   MultiSelectDropdown,
-  type DropdownInputProps,
-  type DropdownItemProps,
+  DropdownInputProps,
+  DropdownItemProps,
 } from 'react-native-paper-dropdown';
 
 const OPTIONS = [

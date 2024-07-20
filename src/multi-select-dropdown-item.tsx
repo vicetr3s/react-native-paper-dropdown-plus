@@ -1,6 +1,6 @@
 import { useCallback, useMemo, Fragment } from 'react';
 import { useTheme, Menu, Divider, Checkbox } from 'react-native-paper';
-import { View, type ViewStyle } from 'react-native';
+import { View, ViewStyle } from 'react-native';
 import { MultiSelectDropdownItemProps } from './types';
 
 function MultiSelectDropdownItem(props: MultiSelectDropdownItemProps) {
