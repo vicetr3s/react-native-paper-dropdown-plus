@@ -269,7 +269,7 @@ const styles = StyleSheet.create({
 
 ## Demo
 
-<img src="https://github.com/fateh999/react-native-paper-dropdown/raw/main/Demo.gif" width="250" height="444"/>
+<img src="https://github.com/fateh999/react-native-paper-dropdown/raw/main/Demo.gif" style="object-fit:contain" width="250" height="444"/>
 
 ## Props
 
