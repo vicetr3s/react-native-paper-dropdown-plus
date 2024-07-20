@@ -27,6 +27,10 @@ npm i react-native-paper-dropdown
 
 ```
 
+## Demo
+
+<img src="https://github.com/fateh999/react-native-paper-dropdown/raw/main/Demo.gif" width="250" height="444"/>
+
 ## Latest Documentation :
 
 - [https://fateh999.github.io/react-native-paper-dropdown](https://fateh999.github.io/react-native-paper-dropdown)
