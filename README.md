@@ -27,12 +27,24 @@ npm i react-native-paper-dropdown
 
 ```
 
-## Documentation :
+## Latest Documentation :
+
+WIP
+
+## v1 Documentation :
 
 - [https://fateh999.github.io/react-native-paper-dropdown](https://fateh999.github.io/react-native-paper-dropdown)
 
-## Demo
-
-![Demo](Demo.gif)
-
 <p><a href="https://www.buymeacoffee.com/fateh999"> <img align="left" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="50" width="210" alt="fateh999" /></a></p><br><br><br>
+
+## Contributing
+
+See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
+
+## License
+
+MIT
+
+---
+
+Made with [create-react-native-library](https://github.com/callstack/react-native-builder-bob)

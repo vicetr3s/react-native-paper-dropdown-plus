@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { forwardRef, useCallback, useMemo, useState } from 'react';
 import {
   Keyboard,
   ScrollView,
@@ -9,11 +9,11 @@ import {
   type ViewStyle,
 } from 'react-native';
 import { Menu, TextInput, TouchableRipple } from 'react-native-paper';
-import DropdownItem from './dropdown-item';
 import DropdownInput from './dropdown-input';
-import type { DropdownProps } from './types';
+import MultiSelectDropdownItem from './multi-select-dropdown-item';
+import type { MultiSelectDropdownProps } from './types';
 
-function Dropdown(props: DropdownProps) {
+function MultiSelectDropdown(props: MultiSelectDropdownProps) {
   const [enable, setEnable] = useState(false);
   const { height } = useWindowDimensions();
   const {
@@ -23,16 +23,24 @@ function Dropdown(props: DropdownProps) {
     label,
     menuUpIcon = <TextInput.Icon icon={'menu-up'} pointerEvents="none" />,
     menuDownIcon = <TextInput.Icon icon={'menu-down'} pointerEvents="none" />,
-    value,
+    value = [],
     onSelect,
     maxMenuHeight = height / 2.5,
     menuContentStyle,
-    CustomDropdownItem = DropdownItem,
-    CustomDropdownInput = DropdownInput,
+    CustomMultiSelectDropdownItem = MultiSelectDropdownItem,
+    CustomMultiSelectDropdownInput = DropdownInput,
     Touchable = TouchableRipple,
     disabled = false,
   } = props;
-  const selectedLabel = options.find((option) => option.value === value)?.label;
+
+  const selectedLabel = useMemo(
+    () =>
+      options
+        .filter((option) => value.indexOf(option.value) !== -1)
+        .map((option) => option.label)
+        .join(', '),
+    [options, value]
+  );
   const [dropdownLayout, setDropdownLayout] = useState<LayoutRectangle>({
     x: 0,
     y: 0,
@@ -70,7 +78,7 @@ function Dropdown(props: DropdownProps) {
       anchor={
         <Touchable disabled={disabled} onPress={toggleMenu} onLayout={onLayout}>
           <View pointerEvents="none">
-            <CustomDropdownInput
+            <CustomMultiSelectDropdownInput
               placeholder={placeholder}
               label={label}
               rightIcon={rightIcon}
@@ -86,12 +94,11 @@ function Dropdown(props: DropdownProps) {
       <ScrollView style={{ maxHeight: maxMenuHeight }} bounces={false}>
         {options.map((option, index) => {
           return (
-            <CustomDropdownItem
+            <CustomMultiSelectDropdownItem
               key={option.value}
               option={option}
               value={value}
               width={dropdownLayout.width}
-              toggleMenu={toggleMenu}
               onSelect={onSelect}
               isLast={options.length <= index + 1}
             />
@@ -102,4 +109,4 @@ function Dropdown(props: DropdownProps) {
   );
 }
 
-export default Dropdown;
+export default forwardRef(MultiSelectDropdown);
