@@ -29,11 +29,11 @@ npm i react-native-paper-dropdown
 
 ## Latest Documentation :
 
-WIP
+- [https://fateh999.github.io/react-native-paper-dropdown](https://fateh999.github.io/react-native-paper-dropdown)
 
 ## v1 Documentation :
 
-- [https://fateh999.github.io/react-native-paper-dropdown](https://fateh999.github.io/react-native-paper-dropdown)
+- [https://fateh999.github.io/react-native-paper-dropdown/#/old-version](https://fateh999.github.io/react-native-paper-dropdown/#/old-version)
 
 <p><a href="https://www.buymeacoffee.com/fateh999"> <img align="left" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="50" width="210" alt="fateh999" /></a></p><br><br><br>
 

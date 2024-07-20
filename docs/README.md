@@ -269,8 +269,7 @@ const styles = StyleSheet.create({
 
 ## Demo
 
-<div data-snack-id="@fateh999/react-native-paper-dropdown" data-snack-platform="web" data-snack-preview="true" data-snack-theme="light" style="overflow:hidden;background:#fbfcfd;border:1px solid var(--color-border);border-radius:4px;height:505px;width:100%"></div>
-<script async src="https://snack.expo.dev/embed.js"></script>
+![Demo](https://github.com/fateh999/react-native-paper-dropdown/blob/main/Demo.gif)
 
 ## Props
 
