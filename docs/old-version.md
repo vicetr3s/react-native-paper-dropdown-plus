@@ -146,7 +146,7 @@ export default App;
 
 ## Demo
 
-![Demo](https://github.com/fateh999/react-native-paper-dropdown/blob/main/v1-Demo.gif)
+![Demo](https://github.com/fateh999/react-native-paper-dropdown/raw/main/v1-Demo.gif)
 
 ## Props
 

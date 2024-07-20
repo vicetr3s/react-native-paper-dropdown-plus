@@ -269,7 +269,7 @@ const styles = StyleSheet.create({
 
 ## Demo
 
-![Demo](https://github.com/fateh999/react-native-paper-dropdown/blob/main/Demo.gif)
+![Demo](https://github.com/fateh999/react-native-paper-dropdown/raw/main/Demo.gif)
 
 ## Props
 
