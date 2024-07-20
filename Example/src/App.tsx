@@ -12,8 +12,7 @@ import {
   ThemeProvider,
   TouchableRipple,
 } from 'react-native-paper';
-import { Dropdown } from 'react-native-paper-dropdown';
-import MultiSelectDropdown from '../../src/multiselect-dropdown';
+import { Dropdown, MultiSelectDropdown } from 'react-native-paper-dropdown';
 
 const OPTIONS = [
   { label: 'Male', value: 'male' },

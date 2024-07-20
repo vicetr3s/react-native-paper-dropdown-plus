@@ -1,4 +1,4 @@
-import { forwardRef, useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import {
   Keyboard,
   ScrollView,
@@ -120,4 +120,4 @@ function MultiSelectDropdown(props: MultiSelectDropdownProps) {
   );
 }
 
-export default forwardRef(MultiSelectDropdown);
+export default MultiSelectDropdown;
