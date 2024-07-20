@@ -31,6 +31,9 @@ function MultiSelectDropdown(props: MultiSelectDropdownProps) {
     CustomMultiSelectDropdownInput = DropdownInput,
     Touchable = TouchableRipple,
     disabled = false,
+    error = false,
+    testID,
+    menuTestID,
   } = props;
 
   const selectedLabel = useMemo(
@@ -70,13 +73,19 @@ function MultiSelectDropdown(props: MultiSelectDropdownProps) {
 
   return (
     <Menu
+      testID={menuTestID}
       visible={enable}
       onDismiss={toggleMenu}
       style={menuStyle}
       elevation={5}
       keyboardShouldPersistTaps={'handled'}
       anchor={
-        <Touchable disabled={disabled} onPress={toggleMenu} onLayout={onLayout}>
+        <Touchable
+          testID={testID}
+          disabled={disabled}
+          onPress={toggleMenu}
+          onLayout={onLayout}
+        >
           <View pointerEvents="none">
             <CustomMultiSelectDropdownInput
               placeholder={placeholder}
@@ -85,6 +94,7 @@ function MultiSelectDropdown(props: MultiSelectDropdownProps) {
               selectedLabel={selectedLabel}
               mode={mode}
               disabled={disabled}
+              error={error}
             />
           </View>
         </Touchable>
@@ -101,6 +111,7 @@ function MultiSelectDropdown(props: MultiSelectDropdownProps) {
               width={dropdownLayout.width}
               onSelect={onSelect}
               isLast={options.length <= index + 1}
+              menuItemTestID={menuTestID ? `${menuTestID}-${option.value}` : ''}
             />
           );
         })}

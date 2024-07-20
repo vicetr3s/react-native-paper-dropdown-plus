@@ -1,11 +1,11 @@
 import { useCallback, useMemo, Fragment } from 'react';
 import { useTheme, Menu, Divider, Checkbox } from 'react-native-paper';
-import { View } from 'react-native';
+import { View, type ViewStyle } from 'react-native';
 import type { MultiSelectDropdownItemProps } from './types';
 
 function MultiSelectDropdownItem(props: MultiSelectDropdownItemProps) {
-  const { option, width, value = [], onSelect, isLast } = props;
-  const style = useMemo(() => ({ minWidth: width }), []);
+  const { option, width, value = [], onSelect, isLast, menuItemTestID } = props;
+  const style = useMemo(() => ({ minWidth: width }), [width]);
 
   const isActive = useCallback(
     (currentValue: any) => {
@@ -20,6 +20,7 @@ function MultiSelectDropdownItem(props: MultiSelectDropdownItemProps) {
       ? theme.colors.primary
       : theme.colors.onBackground,
   };
+
   const onPress = () => {
     if (option.value) {
       const valueIndex = value.indexOf(option.value);
@@ -33,13 +34,18 @@ function MultiSelectDropdownItem(props: MultiSelectDropdownItemProps) {
     }
   };
 
+  const wrapperStyle: ViewStyle = useMemo(
+    () => ({ flexDirection: 'row', alignItems: 'center', paddingRight: 8 }),
+    []
+  );
+  const menuItemWrapperStyle: ViewStyle = useMemo(() => ({ flex: 1 }), []);
+
   return (
     <Fragment key={option.value}>
-      <View
-        style={{ flexDirection: 'row', alignItems: 'center', paddingRight: 8 }}
-      >
-        <View style={{ flex: 1 }}>
+      <View style={wrapperStyle}>
+        <View style={menuItemWrapperStyle}>
           <Menu.Item
+            testID={menuItemTestID}
             style={style}
             title={option.label}
             titleStyle={titleStyle}

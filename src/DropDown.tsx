@@ -31,6 +31,9 @@ function Dropdown(props: DropdownProps) {
     CustomDropdownInput = DropdownInput,
     Touchable = TouchableRipple,
     disabled = false,
+    error = false,
+    testID,
+    menuTestID,
   } = props;
   const selectedLabel = options.find((option) => option.value === value)?.label;
   const [dropdownLayout, setDropdownLayout] = useState<LayoutRectangle>({
@@ -68,7 +71,12 @@ function Dropdown(props: DropdownProps) {
       elevation={5}
       keyboardShouldPersistTaps={'handled'}
       anchor={
-        <Touchable disabled={disabled} onPress={toggleMenu} onLayout={onLayout}>
+        <Touchable
+          testID={testID}
+          disabled={disabled}
+          onPress={toggleMenu}
+          onLayout={onLayout}
+        >
           <View pointerEvents="none">
             <CustomDropdownInput
               placeholder={placeholder}
@@ -77,11 +85,13 @@ function Dropdown(props: DropdownProps) {
               selectedLabel={selectedLabel}
               mode={mode}
               disabled={disabled}
+              error={error}
             />
           </View>
         </Touchable>
       }
       contentStyle={menuContentStyle}
+      testID={menuTestID}
     >
       <ScrollView style={{ maxHeight: maxMenuHeight }} bounces={false}>
         {options.map((option, index) => {
@@ -94,6 +104,7 @@ function Dropdown(props: DropdownProps) {
               toggleMenu={toggleMenu}
               onSelect={onSelect}
               isLast={options.length <= index + 1}
+              menuItemTestID={menuTestID ? `${menuTestID}-${option.value}` : ''}
             />
           );
         })}

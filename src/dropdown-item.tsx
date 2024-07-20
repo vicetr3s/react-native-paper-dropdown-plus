@@ -4,8 +4,9 @@ import { Fragment } from 'react/jsx-runtime';
 import type { DropdownItemProps } from './types';
 
 function DropdownItem(props: DropdownItemProps) {
-  const { option, width, value, onSelect, toggleMenu, isLast } = props;
-  const style = useMemo(() => ({ minWidth: width }), []);
+  const { option, width, value, onSelect, toggleMenu, isLast, menuItemTestID } =
+    props;
+  const style = useMemo(() => ({ minWidth: width }), [width]);
   const theme = useTheme();
   const titleStyle = {
     color:
@@ -25,6 +26,7 @@ function DropdownItem(props: DropdownItemProps) {
         title={option.label}
         titleStyle={titleStyle}
         onPress={onPress}
+        testID={menuItemTestID}
       />
       {!isLast && <Divider />}
     </Fragment>

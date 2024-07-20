@@ -10,6 +10,7 @@ export type DropdownInputProps = {
   selectedLabel?: string;
   mode?: 'flat' | 'outlined';
   disabled?: boolean;
+  error?: boolean;
 };
 
 export type Option = {
@@ -30,7 +31,12 @@ export type DropdownProps = {
   Touchable?: ForwardRefExoticComponent<
     PressableProps & React.RefAttributes<View>
   >;
-} & Pick<TextInputProps, 'placeholder' | 'label' | 'mode' | 'disabled'>;
+  testID?: string;
+  menuTestID?: string;
+} & Pick<
+  TextInputProps,
+  'placeholder' | 'label' | 'mode' | 'disabled' | 'error'
+>;
 
 export type MultiSelectDropdownProps = {
   value?: string[];
@@ -47,7 +53,12 @@ export type MultiSelectDropdownProps = {
     props: MultiSelectDropdownItemProps
   ) => JSX.Element;
   CustomMultiSelectDropdownInput?: (props: DropdownInputProps) => JSX.Element;
-} & Pick<TextInputProps, 'placeholder' | 'label' | 'mode' | 'disabled'>;
+  testID?: string;
+  menuTestID?: string;
+} & Pick<
+  TextInputProps,
+  'placeholder' | 'label' | 'mode' | 'disabled' | 'error'
+>;
 
 export type DropdownItemProps = {
   option: Option;
@@ -56,7 +67,7 @@ export type DropdownItemProps = {
   width: number;
   toggleMenu: () => void;
   isLast: boolean;
-  multiSelect?: boolean;
+  menuItemTestID?: string;
 };
 
 export type MultiSelectDropdownItemProps = {
@@ -65,5 +76,5 @@ export type MultiSelectDropdownItemProps = {
   onSelect?: (value: string[]) => void;
   width: number;
   isLast: boolean;
-  multiSelect?: boolean;
+  menuItemTestID?: string;
 };
