@@ -30,156 +30,329 @@ npm i react-native-paper-dropdown
 ## Basic Example
 
 ```javascript
+import { useMemo, useState } from 'react';
+import { ScrollView, StyleSheet, View, type ViewStyle } from 'react-native';
 import {
   Appbar,
-  DarkTheme,
-  DefaultTheme,
-  Provider,
-  Surface,
+  Divider,
+  Headline,
+  MD3DarkTheme,
+  MD3LightTheme,
+  PaperProvider,
+  Paragraph,
+  TextInput,
   ThemeProvider,
-} from "react-native-paper";
-import React, { useState } from "react";
-import { SafeAreaView, StatusBar, StyleSheet, View } from "react-native";
-import DropDown from "react-native-paper-dropdown";
+  TouchableRipple,
+} from 'react-native-paper';
+import {
+  Dropdown,
+  MultiSelectDropdown,
+  type DropdownInputProps,
+  type DropdownItemProps,
+} from 'react-native-paper-dropdown';
 
-function App() {
-  const [nightMode, setNightmode] = useState(false);
-  const [showDropDown, setShowDropDown] = useState(false);
-  const [gender, setGender] = useState < string > "";
-  const [showMultiSelectDropDown, setShowMultiSelectDropDown] = useState(false);
-  const [colors, setColors] = useState < string > "";
-  const genderList = [
-    {
-      label: "Male",
-      value: "male",
-    },
-    {
-      label: "Female",
-      value: "female",
-    },
-    {
-      label: "Others",
-      value: "others",
-    },
-  ];
-  const colorList = [
-    {
-      label: "White",
-      value: "white",
-    },
-    {
-      label: "Red",
-      value: "red",
-    },
-    {
-      label: "Blue",
-      value: "blue",
-    },
-    {
-      label: "Green",
-      value: "green",
-    },
-    {
-      label: "Orange",
-      value: "orange",
-    },
-  ];
+const OPTIONS = [
+  { label: 'Male', value: 'male' },
+  { label: 'Female', value: 'female' },
+  { label: 'Other', value: 'other' },
+];
+
+const MULTI_SELECT_OPTIONS = [
+  {
+    label: 'White',
+    value: 'white',
+  },
+  {
+    label: 'Red',
+    value: 'red',
+  },
+  {
+    label: 'Blue',
+    value: 'blue',
+  },
+  {
+    label: 'Green',
+    value: 'green',
+  },
+  {
+    label: 'Orange',
+    value: 'orange',
+  },
+];
+
+const CustomDropdownItem = ({
+  width,
+  option,
+  value,
+  onSelect,
+  toggleMenu,
+  isLast,
+}: DropdownItemProps) => {
+  const style: ViewStyle = useMemo(
+    () => ({
+      height: 50,
+      width,
+      backgroundColor:
+        value === option.value
+          ? MD3DarkTheme.colors.primary
+          : MD3DarkTheme.colors.onPrimary,
+      justifyContent: 'center',
+      paddingHorizontal: 16,
+    }),
+    [option.value, value, width]
+  );
 
   return (
-    <Provider theme={nightMode ? DarkTheme : DefaultTheme}>
-      <ThemeProvider theme={nightMode ? DarkTheme : DefaultTheme}>
-        <StatusBar
-          backgroundColor={
-            nightMode ? DarkTheme.colors.surface : DefaultTheme.colors.primary
-          }
-          barStyle={"light-content"}
-        />
-        <Appbar.Header>
-          <Appbar.Content title="React Native Paper Dropdown" />
-          <Appbar.Action
-            icon={nightMode ? "brightness-7" : "brightness-3"}
-            onPress={() => setNightmode(!nightMode)}
-          />
-        </Appbar.Header>
-        <Surface style={styles.containerStyle}>
-          <SafeAreaView style={styles.safeContainerStyle}>
-            <DropDown
-              label={"Gender"}
-              mode={"outlined"}
-              visible={showDropDown}
-              showDropDown={() => setShowDropDown(true)}
-              onDismiss={() => setShowDropDown(false)}
-              value={gender}
-              setValue={setGender}
-              list={genderList}
+    <>
+      <TouchableRipple
+        onPress={() => {
+          onSelect?.(option.value);
+          toggleMenu();
+        }}
+        style={style}
+      >
+        <Headline
+          style={{
+            color:
+              value === option.value
+                ? MD3DarkTheme.colors.onPrimary
+                : MD3DarkTheme.colors.primary,
+          }}
+        >
+          {option.label}
+        </Headline>
+      </TouchableRipple>
+      {!isLast && <Divider />}
+    </>
+  );
+};
+
+const CustomDropdownInput = ({
+  placeholder,
+  selectedLabel,
+  rightIcon,
+}: DropdownInputProps) => {
+  return (
+    <TextInput
+      mode="outlined"
+      placeholder={placeholder}
+      placeholderTextColor={MD3DarkTheme.colors.onSecondary}
+      value={selectedLabel}
+      style={{
+        backgroundColor: MD3DarkTheme.colors.primary,
+      }}
+      textColor={MD3DarkTheme.colors.onPrimary}
+      right={rightIcon}
+    />
+  );
+};
+
+export default function App() {
+  const [nightMode, setNightmode] = useState(false);
+  const [gender, setGender] = useState<string>();
+  const [colors, setColors] = useState<string[]>([]);
+  const Theme = nightMode ? MD3DarkTheme : MD3LightTheme;
+
+  return (
+    <ThemeProvider theme={Theme}>
+      <PaperProvider theme={Theme}>
+        <View
+          style={[
+            styles.container,
+            { backgroundColor: Theme.colors.background },
+          ]}
+        >
+          <Appbar.Header elevated>
+            <Appbar.Content title={'Dropdown Demo'} />
+            <Appbar.Action
+              icon={nightMode ? 'brightness-7' : 'brightness-3'}
+              onPress={() => setNightmode(!nightMode)}
             />
-            <View style={styles.spacerStyle} />
-            <DropDown
-              label={"Colors"}
-              mode={"outlined"}
-              visible={showMultiSelectDropDown}
-              showDropDown={() => setShowMultiSelectDropDown(true)}
-              onDismiss={() => setShowMultiSelectDropDown(false)}
-              value={colors}
-              setValue={setColors}
-              list={colorList}
-              multiSelect
-            />
-          </SafeAreaView>
-        </Surface>
-      </ThemeProvider>
-    </Provider>
+          </Appbar.Header>
+          <ScrollView
+            showsVerticalScrollIndicator
+            keyboardShouldPersistTaps={'handled'}
+          >
+            <View style={styles.formWrapper}>
+              <Headline>Single Select</Headline>
+              <View style={styles.spacer} />
+              <Paragraph>Default Dropdown</Paragraph>
+              <Dropdown
+                label={'Gender'}
+                placeholder="Select Gender"
+                options={OPTIONS}
+                value={gender}
+                onSelect={setGender}
+              />
+              <View style={styles.spacer} />
+              <Paragraph>Default Dropdown (Outline Mode)</Paragraph>
+              <Dropdown
+                label={'Gender'}
+                placeholder="Select Gender"
+                options={OPTIONS}
+                value={gender}
+                onSelect={setGender}
+                mode="outlined"
+              />
+              <View style={styles.spacer} />
+              <Paragraph>Custom Dropdown</Paragraph>
+              <Dropdown
+                label={'Gender'}
+                placeholder="Select Gender"
+                options={OPTIONS}
+                value={gender}
+                onSelect={setGender}
+                menuContentStyle={{
+                  backgroundColor: MD3DarkTheme.colors.onPrimary,
+                }}
+                menuUpIcon={
+                  <TextInput.Icon
+                    icon={'menu-up'}
+                    color={MD3DarkTheme.colors.primaryContainer}
+                    pointerEvents="none"
+                  />
+                }
+                menuDownIcon={
+                  <TextInput.Icon
+                    icon={'menu-down'}
+                    color={MD3DarkTheme.colors.primaryContainer}
+                    pointerEvents="none"
+                  />
+                }
+                CustomDropdownItem={CustomDropdownItem}
+                CustomDropdownInput={CustomDropdownInput}
+              />
+
+              <View style={styles.spacer} />
+              <View style={styles.spacer} />
+
+              <Headline>Multi Select</Headline>
+              <View style={styles.spacer} />
+              <Paragraph>Default Dropdown</Paragraph>
+              <MultiSelectDropdown
+                label={'Colors'}
+                placeholder="Select Colors"
+                options={MULTI_SELECT_OPTIONS}
+                value={colors}
+                onSelect={setColors}
+              />
+              <View style={styles.spacer} />
+              <Paragraph>Default Dropdown (Outline Mode)</Paragraph>
+              <MultiSelectDropdown
+                label={'Colors'}
+                placeholder="Select Colors"
+                options={MULTI_SELECT_OPTIONS}
+                value={colors}
+                onSelect={setColors}
+                mode={'outlined'}
+              />
+            </View>
+          </ScrollView>
+        </View>
+      </PaperProvider>
+    </ThemeProvider>
   );
 }
 
 const styles = StyleSheet.create({
-  containerStyle: {
+  container: {
     flex: 1,
   },
-  spacerStyle: {
-    marginBottom: 15,
+  formWrapper: {
+    margin: 16,
   },
-  safeContainerStyle: {
-    flex: 1,
-    margin: 20,
-    justifyContent: "center",
+  spacer: {
+    height: 16,
   },
 });
-
-export default App;
 ```
 
 ## Demo
 
-![Demo](https://github.com/fateh999/react-native-paper-dropdown/blob/master/Demo.gif)
+<div data-snack-id="@fateh999/react-native-paper-dropdown" data-snack-platform="web" data-snack-preview="true" data-snack-theme="light" style="overflow:hidden;background:#fbfcfd;border:1px solid var(--color-border);border-radius:4px;height:505px;width:100%"></div>
+<script async src="https://snack.expo.dev/embed.js"></script>
 
 ## Props
 
 ```typescript
-{
-    visible: boolean;
-    multiSelect?: boolean;
-    onDismiss: () => void;
-    showDropDown: () => void;
-    value: any;
-    setValue: (_value: any) => void;
-    label?: string | undefined;
-    placeholder?: string | undefined;
-    mode?: "outlined" | "flat" | undefined;
-    inputProps?: TextInputPropsWithoutTheme;
-    list: Array<{
-        label: string;
-        value: string | number;
-        custom?: ReactNode;
-    }>;
-    dropDownContainerMaxHeight?: number;
-    dropDownContainerHeight?: number;
-    activeColor?: string;
-    theme?: Theme;
-    dropDownStyle?: ViewStyle;
-    dropDownItemSelectedTextStyle?: TextStyle;
-    dropDownItemSelectedStyle?: ViewStyle;
-    dropDownItemStyle?: ViewStyle;
-    dropDownItemTextStyle?: TextStyle;
-}
+import type { ForwardRefExoticComponent } from 'react';
+import type { PressableProps, View, ViewStyle } from 'react-native';
+import type { TextInputLabelProp } from 'react-native-paper/lib/typescript/components/TextInput/types';
+import type { TextInputProps } from 'react-native-paper';
+
+export type DropdownInputProps = {
+  placeholder?: string;
+  label?: TextInputLabelProp;
+  rightIcon: JSX.Element;
+  selectedLabel?: string;
+  mode?: 'flat' | 'outlined';
+  disabled?: boolean;
+  error?: boolean;
+};
+
+export type Option = {
+  label: string;
+  value: string;
+};
+
+export type DropdownProps = {
+  value?: string;
+  onSelect?: (value: string) => void;
+  options: Option[];
+  menuUpIcon?: JSX.Element;
+  menuDownIcon?: JSX.Element;
+  maxMenuHeight?: number;
+  menuContentStyle?: ViewStyle;
+  CustomDropdownItem?: (props: DropdownItemProps) => JSX.Element;
+  CustomDropdownInput?: (props: DropdownInputProps) => JSX.Element;
+  Touchable?: ForwardRefExoticComponent<
+    PressableProps & React.RefAttributes<View>
+  >;
+  testID?: string;
+  menuTestID?: string;
+} & Pick<
+  TextInputProps,
+  'placeholder' | 'label' | 'mode' | 'disabled' | 'error'
+>;
+
+export type MultiSelectDropdownProps = {
+  value?: string[];
+  onSelect?: (value: string[]) => void;
+  options: Option[];
+  menuUpIcon?: JSX.Element;
+  menuDownIcon?: JSX.Element;
+  Touchable?: ForwardRefExoticComponent<
+    PressableProps & React.RefAttributes<View>
+  >;
+  maxMenuHeight?: number;
+  menuContentStyle?: ViewStyle;
+  CustomMultiSelectDropdownItem?: (
+    props: MultiSelectDropdownItemProps
+  ) => JSX.Element;
+  CustomMultiSelectDropdownInput?: (props: DropdownInputProps) => JSX.Element;
+  testID?: string;
+  menuTestID?: string;
+} & Pick<
+  TextInputProps,
+  'placeholder' | 'label' | 'mode' | 'disabled' | 'error'
+>;
+
+export type DropdownItemProps = {
+  option: Option;
+  value?: string;
+  onSelect?: (value: string) => void;
+  width: number;
+  toggleMenu: () => void;
+  isLast: boolean;
+  menuItemTestID?: string;
+};
+
+export type MultiSelectDropdownItemProps = {
+  option: Option;
+  value?: string[];
+  onSelect?: (value: string[]) => void;
+  width: number;
+  isLast: boolean;
+  menuItemTestID?: string;
+};
 ```
