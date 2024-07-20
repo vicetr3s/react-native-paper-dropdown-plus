@@ -3,7 +3,7 @@ import DropdownInput from './dropdown-input';
 import DropdownItem from './dropdown-item';
 import MultiSelectDropdownItem from './multi-select-dropdown-item';
 import MultiSelectDropdown from './multi-select-dropdown';
-import type {
+import {
   DropdownInputProps,
   DropdownItemProps,
   DropdownProps,
@@ -18,9 +18,6 @@ export {
   DropdownInput,
   DropdownItem,
   MultiSelectDropdownItem,
-};
-
-export type {
   DropdownInputProps,
   DropdownItemProps,
   DropdownProps,

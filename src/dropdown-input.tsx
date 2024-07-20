@@ -1,5 +1,5 @@
 import { TextInput } from 'react-native-paper';
-import type { DropdownInputProps } from './types';
+import { DropdownInputProps } from './types';
 
 function DropdownInput(props: DropdownInputProps) {
   const { placeholder, label, rightIcon, selectedLabel, mode, disabled } =

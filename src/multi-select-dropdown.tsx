@@ -11,7 +11,7 @@ import {
 import { Menu, TextInput, TouchableRipple } from 'react-native-paper';
 import DropdownInput from './dropdown-input';
 import MultiSelectDropdownItem from './multi-select-dropdown-item';
-import type { MultiSelectDropdownProps } from './types';
+import { MultiSelectDropdownProps } from './types';
 
 function MultiSelectDropdown(props: MultiSelectDropdownProps) {
   const [enable, setEnable] = useState(false);

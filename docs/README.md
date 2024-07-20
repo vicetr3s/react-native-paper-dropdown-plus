@@ -274,10 +274,10 @@ const styles = StyleSheet.create({
 ## Props
 
 ```typescript
-import type { ForwardRefExoticComponent } from 'react';
-import type { PressableProps, View, ViewStyle } from 'react-native';
-import type { TextInputLabelProp } from 'react-native-paper/lib/typescript/components/TextInput/types';
-import type { TextInputProps } from 'react-native-paper';
+import { ForwardRefExoticComponent } from 'react';
+import { PressableProps, View, ViewStyle } from 'react-native';
+import { TextInputLabelProp } from 'react-native-paper/lib/typescript/components/TextInput/types';
+import { TextInputProps } from 'react-native-paper';
 
 export type DropdownInputProps = {
   placeholder?: string;

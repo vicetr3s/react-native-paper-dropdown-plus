@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useTheme, Menu, Divider } from 'react-native-paper';
 import { Fragment } from 'react/jsx-runtime';
-import type { DropdownItemProps } from './types';
+import { DropdownItemProps } from './types';
 
 function DropdownItem(props: DropdownItemProps) {
   const { option, width, value, onSelect, toggleMenu, isLast, menuItemTestID } =

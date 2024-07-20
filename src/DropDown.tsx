@@ -11,7 +11,7 @@ import {
 import { Menu, TextInput, TouchableRipple } from 'react-native-paper';
 import DropdownItem from './dropdown-item';
 import DropdownInput from './dropdown-input';
-import type { DropdownProps } from './types';
+import { DropdownProps } from './types';
 
 function Dropdown(props: DropdownProps) {
   const [enable, setEnable] = useState(false);

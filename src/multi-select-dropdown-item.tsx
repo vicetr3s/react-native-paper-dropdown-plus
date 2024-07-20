@@ -1,7 +1,7 @@
 import { useCallback, useMemo, Fragment } from 'react';
 import { useTheme, Menu, Divider, Checkbox } from 'react-native-paper';
 import { View, type ViewStyle } from 'react-native';
-import type { MultiSelectDropdownItemProps } from './types';
+import { MultiSelectDropdownItemProps } from './types';
 
 function MultiSelectDropdownItem(props: MultiSelectDropdownItemProps) {
   const { option, width, value = [], onSelect, isLast, menuItemTestID } = props;
