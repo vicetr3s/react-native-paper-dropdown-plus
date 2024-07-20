@@ -36,7 +36,7 @@ function MultiSelectDropdown(props: MultiSelectDropdownProps) {
   const selectedLabel = useMemo(
     () =>
       options
-        .filter((option) => value.indexOf(option.value) !== -1)
+        .filter((option) => value.includes(option.value))
         .map((option) => option.label)
         .join(', '),
     [options, value]
