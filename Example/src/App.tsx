@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { useMemo, useState } from 'react';
+import { ScrollView, StyleSheet, View, type ViewStyle } from 'react-native';
 import {
   Appbar,
   Divider,
@@ -12,7 +12,12 @@ import {
   ThemeProvider,
   TouchableRipple,
 } from 'react-native-paper';
-import { Dropdown, MultiSelectDropdown } from 'react-native-paper-dropdown';
+import {
+  Dropdown,
+  MultiSelectDropdown,
+  type DropdownInputProps,
+  type DropdownItemProps,
+} from 'react-native-paper-dropdown';
 
 const OPTIONS = [
   { label: 'Male', value: 'male' },
@@ -42,6 +47,73 @@ const MULTI_SELECT_OPTIONS = [
     value: 'orange',
   },
 ];
+
+const CustomDropdownItem = ({
+  width,
+  option,
+  value,
+  onSelect,
+  toggleMenu,
+  isLast,
+}: DropdownItemProps) => {
+  const style: ViewStyle = useMemo(
+    () => ({
+      height: 50,
+      width,
+      backgroundColor:
+        value === option.value
+          ? MD3DarkTheme.colors.primary
+          : MD3DarkTheme.colors.onPrimary,
+      justifyContent: 'center',
+      paddingHorizontal: 16,
+    }),
+    [option.value, value, width]
+  );
+
+  return (
+    <>
+      <TouchableRipple
+        onPress={() => {
+          onSelect?.(option.value);
+          toggleMenu();
+        }}
+        style={style}
+      >
+        <Headline
+          style={{
+            color:
+              value === option.value
+                ? MD3DarkTheme.colors.onPrimary
+                : MD3DarkTheme.colors.primary,
+          }}
+        >
+          {option.label}
+        </Headline>
+      </TouchableRipple>
+      {!isLast && <Divider />}
+    </>
+  );
+};
+
+const CustomDropdownInput = ({
+  placeholder,
+  selectedLabel,
+  rightIcon,
+}: DropdownInputProps) => {
+  return (
+    <TextInput
+      mode="outlined"
+      placeholder={placeholder}
+      placeholderTextColor={MD3DarkTheme.colors.onSecondary}
+      value={selectedLabel}
+      style={{
+        backgroundColor: MD3DarkTheme.colors.primary,
+      }}
+      textColor={MD3DarkTheme.colors.onPrimary}
+      right={rightIcon}
+    />
+  );
+};
 
 export default function App() {
   const [nightMode, setNightmode] = useState(false);
@@ -115,66 +187,8 @@ export default function App() {
                     pointerEvents="none"
                   />
                 }
-                CustomDropdownItem={({
-                  width,
-                  option,
-                  value,
-                  onSelect,
-                  toggleMenu,
-                  isLast,
-                }) => {
-                  return (
-                    <>
-                      <TouchableRipple
-                        onPress={() => {
-                          onSelect?.(option.value);
-                          toggleMenu();
-                        }}
-                        style={{
-                          height: 50,
-                          width,
-                          backgroundColor:
-                            value === option.value
-                              ? MD3DarkTheme.colors.primary
-                              : MD3DarkTheme.colors.onPrimary,
-                          justifyContent: 'center',
-                          paddingHorizontal: 16,
-                        }}
-                      >
-                        <Headline
-                          style={{
-                            color:
-                              value === option.value
-                                ? MD3DarkTheme.colors.onPrimary
-                                : MD3DarkTheme.colors.primary,
-                          }}
-                        >
-                          {option.label}
-                        </Headline>
-                      </TouchableRipple>
-                      {!isLast && <Divider />}
-                    </>
-                  );
-                }}
-                CustomDropdownInput={({
-                  placeholder,
-                  selectedLabel,
-                  rightIcon,
-                }) => {
-                  return (
-                    <TextInput
-                      mode="outlined"
-                      placeholder={placeholder}
-                      placeholderTextColor={MD3DarkTheme.colors.onSecondary}
-                      value={selectedLabel}
-                      style={{
-                        backgroundColor: MD3DarkTheme.colors.primary,
-                      }}
-                      textColor={MD3DarkTheme.colors.onPrimary}
-                      right={rightIcon}
-                    />
-                  );
-                }}
+                CustomDropdownItem={CustomDropdownItem}
+                CustomDropdownInput={CustomDropdownInput}
               />
 
               <View style={styles.spacer} />
