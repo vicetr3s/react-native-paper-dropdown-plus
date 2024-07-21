@@ -1,27 +1,12 @@
-import React, {
-  forwardRef,
-  useCallback,
-  useImperativeHandle,
-  useMemo,
-  useState,
-} from 'react';
-import {
-  Keyboard,
-  ScrollView,
-  useWindowDimensions,
-  View,
-  LayoutChangeEvent,
-  LayoutRectangle,
-  ViewStyle,
-} from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { Menu, TextInput, TouchableRipple } from 'react-native-paper';
 import DropdownItem from './dropdown-item';
 import DropdownInput from './dropdown-input';
 import { DropdownProps, DropdownRef } from './types';
+import useDropdown from './use-dropdown';
+import { forwardRef, useImperativeHandle } from 'react';
 
 function Dropdown(props: DropdownProps, ref: React.Ref<DropdownRef>) {
-  const [enable, setEnable] = useState(false);
-  const { height } = useWindowDimensions();
   const {
     options,
     mode,
@@ -31,7 +16,7 @@ function Dropdown(props: DropdownProps, ref: React.Ref<DropdownRef>) {
     menuDownIcon = <TextInput.Icon icon={'menu-down'} pointerEvents="none" />,
     value,
     onSelect,
-    maxMenuHeight = height / 2.5,
+    maxMenuHeight,
     menuContentStyle,
     CustomDropdownItem = DropdownItem,
     CustomDropdownInput = DropdownInput,
@@ -42,40 +27,22 @@ function Dropdown(props: DropdownProps, ref: React.Ref<DropdownRef>) {
     menuTestID,
   } = props;
   const selectedLabel = options.find((option) => option.value === value)?.label;
-  const [dropdownLayout, setDropdownLayout] = useState<LayoutRectangle>({
-    x: 0,
-    y: 0,
-    height: 0,
-    width: 0,
-  });
+  const {
+    enable,
+    setEnable,
+    toggleMenu,
+    onLayout,
+    menuStyle,
+    scrollViewStyle,
+    dropdownLayout,
+  } = useDropdown(maxMenuHeight);
   const rightIcon = enable ? menuUpIcon : menuDownIcon;
-
-  const toggleMenu = useCallback(() => {
-    Keyboard.dismiss();
-    setEnable(!enable);
-  }, [enable]);
-
-  const onLayout = useCallback(
-    ({ nativeEvent: { layout } }: LayoutChangeEvent) => {
-      setDropdownLayout(layout);
-    },
-    []
-  );
-
-  const menuStyle: ViewStyle = useMemo(
-    () => ({
-      width: dropdownLayout.width,
-    }),
-    [dropdownLayout.width]
-  );
 
   useImperativeHandle(ref, () => ({
     focus() {
-      Keyboard.dismiss();
       setEnable(true);
     },
     blur() {
-      Keyboard.dismiss();
       setEnable(false);
     },
   }));
@@ -110,7 +77,7 @@ function Dropdown(props: DropdownProps, ref: React.Ref<DropdownRef>) {
       contentStyle={menuContentStyle}
       testID={menuTestID}
     >
-      <ScrollView style={{ maxHeight: maxMenuHeight }} bounces={false}>
+      <ScrollView style={scrollViewStyle} bounces={false}>
         {options.map((option, index) => {
           return (
             <CustomDropdownItem
