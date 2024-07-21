@@ -5,39 +5,109 @@
 [![npm](https://img.shields.io/npm/dt/react-native-paper-dropdown.svg?style=for-the-badge)](https://www.npmjs.com/package/react-native-paper-dropdown)
 [![npm](https://img.shields.io/npm/l/react-native-paper-dropdown?style=for-the-badge)](https://github.com/fateh999/react-native-paper-dropdown/blob/master/LICENSE)
 
-Material Design Dropdown Component using React Native Paper
-
-## Dependencies
-
-    react-native-paper
+A Material Design Dropdown Component for React Native Paper
 
 ## Installation
 
+To install the package, run:
+
 ```bash
-
 yarn add react-native-paper-dropdown
-
 ```
 
 or
 
+```bash
+npm i react-native-paper-dropdown
 ```
 
-npm i react-native-paper-dropdown
+## Dependencies
 
+This package depends on `react-native-paper`. Ensure it's installed in your project:
+
+```bash
+yarn add react-native-paper
 ```
 
 ## Basic Example
 
+### Single Select
+
 ```javascript
-import { useMemo, useState } from 'react';
+import React, { useState } from 'react';
+import { View } from 'react-native';
+import { Dropdown } from 'react-native-paper-dropdown';
+import { Provider as PaperProvider } from 'react-native-paper';
+
+const OPTIONS = [
+  { label: 'Male', value: 'male' },
+  { label: 'Female', value: 'female' },
+  { label: 'Other', value: 'other' },
+];
+
+export default function App() {
+  const [gender, setGender] = useState<string>();
+
+  return (
+    <PaperProvider>
+      <View style={{ margin: 16 }}>
+        <Dropdown
+          label="Gender"
+          placeholder="Select Gender"
+          options={OPTIONS}
+          value={gender}
+          onSelect={setGender}
+        />
+      </View>
+    </PaperProvider>
+  );
+}
+```
+
+### Multi Select
+
+```javascript
+import React, { useState } from 'react';
+import { View } from 'react-native';
+import { MultiSelectDropdown } from 'react-native-paper-dropdown';
+import { Provider as PaperProvider } from 'react-native-paper';
+
+const MULTI_SELECT_OPTIONS = [
+  { label: 'White', value: 'white' },
+  { label: 'Red', value: 'red' },
+  { label: 'Blue', value: 'blue' },
+  { label: 'Green', value: 'green' },
+  { label: 'Orange', value: 'orange' },
+];
+
+export default function App() {
+  const [colors, setColors] = useState<string[]>([]);
+
+  return (
+    <PaperProvider>
+      <View style={{ margin: 16 }}>
+        <MultiSelectDropdown
+          label="Colors"
+          placeholder="Select Colors"
+          options={MULTI_SELECT_OPTIONS}
+          value={colors}
+          onSelect={setColors}
+        />
+      </View>
+    </PaperProvider>
+  );
+}
+```
+
+## Advanced Example
+
+```javascript
+import React, { useMemo, useState } from 'react';
 import { ScrollView, StyleSheet, View, ViewStyle } from 'react-native';
 import {
   Appbar,
   Divider,
   Headline,
-  MD3DarkTheme,
-  MD3LightTheme,
   PaperProvider,
   Paragraph,
   TextInput,
@@ -58,26 +128,11 @@ const OPTIONS = [
 ];
 
 const MULTI_SELECT_OPTIONS = [
-  {
-    label: 'White',
-    value: 'white',
-  },
-  {
-    label: 'Red',
-    value: 'red',
-  },
-  {
-    label: 'Blue',
-    value: 'blue',
-  },
-  {
-    label: 'Green',
-    value: 'green',
-  },
-  {
-    label: 'Orange',
-    value: 'orange',
-  },
+  { label: 'White', value: 'white' },
+  { label: 'Red', value: 'red' },
+  { label: 'Blue', value: 'blue' },
+  { label: 'Green', value: 'green' },
+  { label: 'Orange', value: 'orange' },
 ];
 
 const CustomDropdownItem = ({
@@ -93,9 +148,7 @@ const CustomDropdownItem = ({
       height: 50,
       width,
       backgroundColor:
-        value === option.value
-          ? MD3DarkTheme.colors.primary
-          : MD3DarkTheme.colors.onPrimary,
+        value === option.value ? MD3DarkTheme.colors.primary : MD3DarkTheme.colors.onPrimary,
       justifyContent: 'center',
       paddingHorizontal: 16,
     }),
@@ -113,10 +166,7 @@ const CustomDropdownItem = ({
       >
         <Headline
           style={{
-            color:
-              value === option.value
-                ? MD3DarkTheme.colors.onPrimary
-                : MD3DarkTheme.colors.primary,
+            color: value === option.value ? MD3DarkTheme.colors.onPrimary : MD3DarkTheme.colors.primary,
           }}
         >
           {option.label}
@@ -131,24 +181,20 @@ const CustomDropdownInput = ({
   placeholder,
   selectedLabel,
   rightIcon,
-}: DropdownInputProps) => {
-  return (
-    <TextInput
-      mode="outlined"
-      placeholder={placeholder}
-      placeholderTextColor={MD3DarkTheme.colors.onSecondary}
-      value={selectedLabel}
-      style={{
-        backgroundColor: MD3DarkTheme.colors.primary,
-      }}
-      textColor={MD3DarkTheme.colors.onPrimary}
-      right={rightIcon}
-    />
-  );
-};
+}: DropdownInputProps) => (
+  <TextInput
+    mode="outlined"
+    placeholder={placeholder}
+    placeholderTextColor={MD3DarkTheme.colors.onSecondary}
+    value={selectedLabel}
+    style={{ backgroundColor: MD3DarkTheme.colors.primary }}
+    textColor={MD3DarkTheme.colors.onPrimary}
+    right={rightIcon}
+  />
+);
 
 export default function App() {
-  const [nightMode, setNightmode] = useState(false);
+  const [nightMode, setNightMode] = useState(false);
   const [gender, setGender] = useState<string>();
   const [colors, setColors] = useState<string[]>([]);
   const Theme = nightMode ? MD3DarkTheme : MD3LightTheme;
@@ -156,95 +202,65 @@ export default function App() {
   return (
     <ThemeProvider theme={Theme}>
       <PaperProvider theme={Theme}>
-        <View
-          style={[
-            styles.container,
-            { backgroundColor: Theme.colors.background },
-          ]}
-        >
+        <View style={[styles.container, { backgroundColor: Theme.colors.background }]}>
           <Appbar.Header elevated>
-            <Appbar.Content title={'Dropdown Demo'} />
+            <Appbar.Content title="Dropdown Demo" />
             <Appbar.Action
               icon={nightMode ? 'brightness-7' : 'brightness-3'}
-              onPress={() => setNightmode(!nightMode)}
+              onPress={() => setNightMode(!nightMode)}
             />
           </Appbar.Header>
-          <ScrollView
-            showsVerticalScrollIndicator
-            keyboardShouldPersistTaps={'handled'}
-          >
+          <ScrollView keyboardShouldPersistTaps="handled">
             <View style={styles.formWrapper}>
               <Headline>Single Select</Headline>
-              <View style={styles.spacer} />
               <Paragraph>Default Dropdown</Paragraph>
               <Dropdown
-                label={'Gender'}
+                label="Gender"
                 placeholder="Select Gender"
                 options={OPTIONS}
                 value={gender}
                 onSelect={setGender}
               />
-              <View style={styles.spacer} />
               <Paragraph>Default Dropdown (Outline Mode)</Paragraph>
               <Dropdown
-                label={'Gender'}
+                label="Gender"
                 placeholder="Select Gender"
                 options={OPTIONS}
                 value={gender}
                 onSelect={setGender}
                 mode="outlined"
               />
-              <View style={styles.spacer} />
               <Paragraph>Custom Dropdown</Paragraph>
               <Dropdown
-                label={'Gender'}
+                label="Gender"
                 placeholder="Select Gender"
                 options={OPTIONS}
                 value={gender}
                 onSelect={setGender}
-                menuContentStyle={{
-                  backgroundColor: MD3DarkTheme.colors.onPrimary,
-                }}
-                menuUpIcon={
-                  <TextInput.Icon
-                    icon={'menu-up'}
-                    color={MD3DarkTheme.colors.primaryContainer}
-                    pointerEvents="none"
-                  />
-                }
-                menuDownIcon={
-                  <TextInput.Icon
-                    icon={'menu-down'}
-                    color={MD3DarkTheme.colors.primaryContainer}
-                    pointerEvents="none"
-                  />
-                }
+                menuContentStyle={{ backgroundColor: MD3DarkTheme.colors.onPrimary }}
+                menuUpIcon={<TextInput.Icon icon="menu-up" color={MD3DarkTheme.colors.primaryContainer} pointerEvents="none" />}
+                menuDownIcon={<TextInput.Icon icon="menu-down" color={MD3DarkTheme.colors.primaryContainer} pointerEvents="none" />}
                 CustomDropdownItem={CustomDropdownItem}
                 CustomDropdownInput={CustomDropdownInput}
               />
 
-              <View style={styles.spacer} />
-              <View style={styles.spacer} />
-
               <Headline>Multi Select</Headline>
-              <View style={styles.spacer} />
               <Paragraph>Default Dropdown</Paragraph>
               <MultiSelectDropdown
-                label={'Colors'}
+                label="Colors"
                 placeholder="Select Colors"
                 options={MULTI_SELECT_OPTIONS}
                 value={colors}
                 onSelect={setColors}
               />
-              <View style={styles.spacer} />
               <Paragraph>Default Dropdown (Outline Mode)</Paragraph>
               <MultiSelectDropdown
-                label={'Colors'}
+                label="Colors"
                 placeholder="Select Colors"
                 options={MULTI_SELECT_OPTIONS}
                 value={colors}
                 onSelect={setColors}
-                mode={'outlined'}
+                mode="outlined"
               />
             </View>
           </ScrollView>
@@ -261,9 +277,6 @@ const styles = StyleSheet.create({
   formWrapper: {
     margin: 16,
   },
-  spacer: {
-    height: 16,
-  },
 });
 ```
 
@@ -273,85 +286,52 @@ const styles = StyleSheet.create({
 
 ## Props
 
-```typescript
-import { ForwardRefExoticComponent } from 'react';
-import { PressableProps, View, ViewStyle } from 'react-native';
-import { TextInputLabelProp } from 'react-native-paper/lib/typescript/components/TextInput/types';
-import { TextInputProps } from 'react-native-paper';
+### `DropdownProps`
 
-export type DropdownInputProps = {
-  placeholder?: string;
-  label?: TextInputLabelProp;
-  rightIcon: JSX.Element;
-  selectedLabel?: string;
-  mode?: 'flat' | 'outlined';
-  disabled?: boolean;
-  error?: boolean;
-};
+| Prop                  | Type                                                              | Description                                  |
+| --------------------- | ----------------------------------------------------------------- | -------------------------------------------- |
+| `value`               | `string`                                                          | The currently selected value.                |
+| `onSelect`            | `(value: string) => void`                                         | Callback function to handle value selection. |
+| `options`             | `Option[]`                                                        | Array of options for the dropdown.           |
+| `menuUpIcon`          | `JSX.Element`                                                     | Custom icon for menu up state.               |
+| `menuDownIcon`        | `JSX.Element`                                                     | Custom icon for menu down state.             |
+| `maxMenuHeight`       | `number`                                                          | Maximum height of the dropdown menu.         |
+| `menuContentStyle`    | `ViewStyle`                                                       | Style for the dropdown menu content.         |
+| `CustomDropdownItem`  | `(props: DropdownItemProps) => JSX.Element`                       | Custom component for dropdown item.          |
+| `CustomDropdownInput` | `(props: DropdownInputProps) => JSX.Element`                      | Custom component for dropdown input.         |
+| `Touchable`           | `ForwardRefExoticComponent<PressableProps & RefAttributes<View>>` | Custom touchable component for the dropdown. |
+| `testID`              | `string`                                                          | Test ID for the dropdown component.          |
+| `menuTestID`          | `string`                                                          | Test ID for the dropdown menu.               |
+| `placeholder`         | `string`                                                          | Placeholder text for the dropdown input.     |
+| `label`               | `TextInputLabelProp`                                              | Label for the dropdown input.                |
+| `mode`                | `'flat' \| 'outlined'`                                            | Mode for the dropdown input.                 |
+| `disabled`            | `boolean`                                                         | Whether the dropdown is disabled.            |
+| `error`               | `boolean`                                                         | Whether the dropdown has an error.           |
 
-export type Option = {
-  label: string;
-  value: string;
-};
+### `MultiSelectDropdownProps`
 
-export type DropdownProps = {
-  value?: string;
-  onSelect?: (value: string) => void;
-  options: Option[];
-  menuUpIcon?: JSX.Element;
-  menuDownIcon?: JSX.Element;
-  maxMenuHeight?: number;
-  menuContentStyle?: ViewStyle;
-  CustomDropdownItem?: (props: DropdownItemProps) => JSX.Element;
-  CustomDropdownInput?: (props: DropdownInputProps) => JSX.Element;
-  Touchable?: ForwardRefExoticComponent<
-    PressableProps & React.RefAttributes<View>
-  >;
-  testID?: string;
-  menuTestID?: string;
-} & Pick<
-  TextInputProps,
-  'placeholder' | 'label' | 'mode' | 'disabled' | 'error'
->;
+| Prop                             | Type                                                              | Description                                       |
+| -------------------------------- | ----------------------------------------------------------------- | ------------------------------------------------- |
+| `value`                          | `string[]`                                                        | The currently selected values.                    |
+| `onSelect`                       | `(value: string[]) => void`                                       | Callback function to handle value selection.      |
+| `options`                        | `Option[]`                                                        | Array of options for the dropdown.                |
+| `menuUpIcon`                     | `JSX.Element`                                                     | Custom icon for menu up state.                    |
+| `menuDownIcon`                   | `JSX.Element`                                                     | Custom icon for menu down state.                  |
+| `Touchable`                      | `ForwardRefExoticComponent<PressableProps & RefAttributes<View>>` | Custom touchable component for the dropdown.      |
+| `maxMenuHeight`                  | `number`                                                          | Maximum height of the dropdown menu.              |
+| `menuContentStyle`               | `ViewStyle`                                                       | Style for the dropdown menu content.              |
+| `CustomMultiSelectDropdownItem`  | `(props: MultiSelectDropdownItemProps) => JSX.Element`            | Custom component for multi-select dropdown item.  |
+| `CustomMultiSelectDropdownInput` | `(props: DropdownInputProps) => JSX.Element`                      | Custom component for multi-select dropdown input. |
+| `testID`                         | `string`                                                          | Test ID for the dropdown component.               |
+| `menuTestID`                     | `string`                                                          | Test ID for the dropdown menu.                    |
+| `placeholder`                    | `string`                                                          | Placeholder text for the dropdown input.          |
+| `label`                          | `TextInputLabelProp`                                              | Label for the dropdown input.                     |
+| `mode`                           | `'flat' \| 'outlined'`                                            | Mode for the dropdown input.                      |
+| `disabled`                       | `boolean`                                                         | Whether the dropdown is disabled.                 |
+| `error`                          | `boolean`                                                         | Whether the dropdown has an error.                |
 
-export type MultiSelectDropdownProps = {
-  value?: string[];
-  onSelect?: (value: string[]) => void;
-  options: Option[];
-  menuUpIcon?: JSX.Element;
-  menuDownIcon?: JSX.Element;
-  Touchable?: ForwardRefExoticComponent<
-    PressableProps & React.RefAttributes<View>
-  >;
-  maxMenuHeight?: number;
-  menuContentStyle?: ViewStyle;
-  CustomMultiSelectDropdownItem?: (
-    props: MultiSelectDropdownItemProps
-  ) => JSX.Element;
-  CustomMultiSelectDropdownInput?: (props: DropdownInputProps) => JSX.Element;
-  testID?: string;
-  menuTestID?: string;
-} & Pick<
-  TextInputProps,
-  'placeholder' | 'label' | 'mode' | 'disabled' | 'error'
->;
+## Customization
 
-export type DropdownItemProps = {
-  option: Option;
-  value?: string;
-  onSelect?: (value: string) => void;
-  width: number;
-  toggleMenu: () => void;
-  isLast: boolean;
-  menuItemTestID?: string;
-};
+You can customize the appearance and behavior of the dropdowns by using the provided props like `menuUpIcon`, `menuDownIcon`, `CustomDropdownItem`, `CustomDropdownInput`, and `menuContentStyle`.
 
-export type MultiSelectDropdownItemProps = {
-  option: Option;
-  value?: string[];
-  onSelect?: (value: string[]) => void;
-  width: number;
-  isLast: boolean;
-  menuItemTestID?: string;
-};
-```
+Enjoy using `react-native-paper-dropdown`!

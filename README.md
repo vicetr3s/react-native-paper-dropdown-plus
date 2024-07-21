@@ -9,46 +9,152 @@ Material Design Dropdown Component using React Native Paper, now also with multi
 
 ## Dependencies
 
-    react-native-paper
+```bash
+react-native-paper
+```
 
 ## Installation
 
 ```bash
-
 yarn add react-native-paper-dropdown
-
 ```
 
 or
 
-```
-
+```bash
 npm i react-native-paper-dropdown
-
 ```
 
 ## Demo
 
 <img src="https://github.com/fateh999/react-native-paper-dropdown/raw/main/Demo.gif" style="object-fit:contain" width="250" height="444"/>
 
-## Latest Documentation :
+## Basic Example
+
+### Single Select
+
+```javascript
+import React, { useState } from 'react';
+import { View } from 'react-native';
+import { Dropdown } from 'react-native-paper-dropdown';
+import { Provider as PaperProvider } from 'react-native-paper';
+
+const OPTIONS = [
+  { label: 'Male', value: 'male' },
+  { label: 'Female', value: 'female' },
+  { label: 'Other', value: 'other' },
+];
+
+export default function App() {
+  const [gender, setGender] = useState<string>();
+
+  return (
+    <PaperProvider>
+      <View style={{ margin: 16 }}>
+        <Dropdown
+          label="Gender"
+          placeholder="Select Gender"
+          options={OPTIONS}
+          value={gender}
+          onSelect={setGender}
+        />
+      </View>
+    </PaperProvider>
+  );
+}
+```
+
+### Multi Select
+
+```javascript
+import React, { useState } from 'react';
+import { View } from 'react-native';
+import { MultiSelectDropdown } from 'react-native-paper-dropdown';
+import { Provider as PaperProvider } from 'react-native-paper';
+
+const MULTI_SELECT_OPTIONS = [
+  { label: 'White', value: 'white' },
+  { label: 'Red', value: 'red' },
+  { label: 'Blue', value: 'blue' },
+  { label: 'Green', value: 'green' },
+  { label: 'Orange', value: 'orange' },
+];
+
+export default function App() {
+  const [colors, setColors] = useState<string[]>([]);
+
+  return (
+    <PaperProvider>
+      <View style={{ margin: 16 }}>
+        <MultiSelectDropdown
+          label="Colors"
+          placeholder="Select Colors"
+          options={MULTI_SELECT_OPTIONS}
+          value={colors}
+          onSelect={setColors}
+        />
+      </View>
+    </PaperProvider>
+  );
+}
+```
+
+## Props
+
+### `DropdownProps`
+
+| Prop                  | Type                                                              | Description                                  |
+| --------------------- | ----------------------------------------------------------------- | -------------------------------------------- |
+| `value`               | `string`                                                          | The currently selected value.                |
+| `onSelect`            | `(value: string) => void`                                         | Callback function to handle value selection. |
+| `options`             | `Option[]`                                                        | Array of options for the dropdown.           |
+| `menuUpIcon`          | `JSX.Element`                                                     | Custom icon for menu up state.               |
+| `menuDownIcon`        | `JSX.Element`                                                     | Custom icon for menu down state.             |
+| `maxMenuHeight`       | `number`                                                          | Maximum height of the dropdown menu.         |
+| `menuContentStyle`    | `ViewStyle`                                                       | Style for the dropdown menu content.         |
+| `CustomDropdownItem`  | `(props: DropdownItemProps) => JSX.Element`                       | Custom component for dropdown item.          |
+| `CustomDropdownInput` | `(props: DropdownInputProps) => JSX.Element`                      | Custom component for dropdown input.         |
+| `Touchable`           | `ForwardRefExoticComponent<PressableProps & RefAttributes<View>>` | Custom touchable component for the dropdown. |
+| `testID`              | `string`                                                          | Test ID for the dropdown component.          |
+| `menuTestID`          | `string`                                                          | Test ID for the dropdown menu.               |
+| `placeholder`         | `string`                                                          | Placeholder text for the dropdown input.     |
+| `label`               | `TextInputLabelProp`                                              | Label for the dropdown input.                |
+| `mode`                | `'flat' \| 'outlined'`                                            | Mode for the dropdown input.                 |
+| `disabled`            | `boolean`                                                         | Whether the dropdown is disabled.            |
+| `error`               | `boolean`                                                         | Whether the dropdown has an error.           |
+
+### `MultiSelectDropdownProps`
+
+| Prop                             | Type                                                              | Description                                       |
+| -------------------------------- | ----------------------------------------------------------------- | ------------------------------------------------- |
+| `value`                          | `string[]`                                                        | The currently selected values.                    |
+| `onSelect`                       | `(value: string[]) => void`                                       | Callback function to handle value selection.      |
+| `options`                        | `Option[]`                                                        | Array of options for the dropdown.                |
+| `menuUpIcon`                     | `JSX.Element`                                                     | Custom icon for menu up state.                    |
+| `menuDownIcon`                   | `JSX.Element`                                                     | Custom icon for menu down state.                  |
+| `Touchable`                      | `ForwardRefExoticComponent<PressableProps & RefAttributes<View>>` | Custom touchable component for the dropdown.      |
+| `maxMenuHeight`                  | `number`                                                          | Maximum height of the dropdown menu.              |
+| `menuContentStyle`               | `ViewStyle`                                                       | Style for the dropdown menu content.              |
+| `CustomMultiSelectDropdownItem`  | `(props: MultiSelectDropdownItemProps) => JSX.Element`            | Custom component for multi-select dropdown item.  |
+| `CustomMultiSelectDropdownInput` | `(props: DropdownInputProps) => JSX.Element`                      | Custom component for multi-select dropdown input. |
+| `testID`                         | `string`                                                          | Test ID for the dropdown component.               |
+| `menuTestID`                     | `string`                                                          | Test ID for the dropdown menu.                    |
+| `placeholder`                    | `string`                                                          | Placeholder text for the dropdown input.          |
+| `label`                          | `TextInputLabelProp`                                              | Label for the dropdown input.                     |
+| `mode`                           | `'flat' \| 'outlined'`                                            | Mode for the dropdown input.                      |
+| `disabled`                       | `boolean`                                                         | Whether the dropdown is disabled.                 |
+| `error`                          | `boolean`                                                         | Whether the dropdown has an error.                |
+
+## Latest Documentation
 
 - [https://fateh999.github.io/react-native-paper-dropdown](https://fateh999.github.io/react-native-paper-dropdown)
 
-## v1 Documentation :
+## v1 Documentation
 
 - [https://fateh999.github.io/react-native-paper-dropdown/#/old-version](https://fateh999.github.io/react-native-paper-dropdown/#/old-version)
 
 <p><a href="https://www.buymeacoffee.com/fateh999"> <img align="left" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="50" width="210" alt="fateh999" /></a></p><br><br><br>
 
-## Contributing
-
-See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
-
 ## License
 
 MIT
-
----
-
-Made with [create-react-native-library](https://github.com/callstack/react-native-builder-bob)
