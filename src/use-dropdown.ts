@@ -47,6 +47,7 @@ function useDropdown(maxMenuHeight?: number, maxHeightFraction: number = 2.5) {
 
   return {
     enable,
+    setEnable,
     toggleMenu,
     onLayout,
     menuStyle,

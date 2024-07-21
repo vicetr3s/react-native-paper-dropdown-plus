@@ -2,10 +2,11 @@ import { ScrollView, View } from 'react-native';
 import { Menu, TextInput, TouchableRipple } from 'react-native-paper';
 import DropdownItem from './dropdown-item';
 import DropdownInput from './dropdown-input';
-import { DropdownProps } from './types';
+import { DropdownProps, DropdownRef } from './types';
 import useDropdown from './use-dropdown';
+import { forwardRef, useImperativeHandle } from 'react';
 
-function Dropdown(props: DropdownProps) {
+function Dropdown(props: DropdownProps, ref: React.Ref<DropdownRef>) {
   const {
     options,
     mode,
@@ -28,6 +29,7 @@ function Dropdown(props: DropdownProps) {
   const selectedLabel = options.find((option) => option.value === value)?.label;
   const {
     enable,
+    setEnable,
     toggleMenu,
     onLayout,
     menuStyle,
@@ -35,6 +37,15 @@ function Dropdown(props: DropdownProps) {
     dropdownLayout,
   } = useDropdown(maxMenuHeight);
   const rightIcon = enable ? menuUpIcon : menuDownIcon;
+
+  useImperativeHandle(ref, () => ({
+    focus() {
+      setEnable(true);
+    },
+    blur() {
+      setEnable(false);
+    },
+  }));
 
   return (
     <Menu
@@ -86,4 +97,4 @@ function Dropdown(props: DropdownProps) {
   );
 }
 
-export default Dropdown;
+export default forwardRef(Dropdown);

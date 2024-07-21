@@ -330,6 +330,13 @@ const styles = StyleSheet.create({
 | `disabled`                       | `boolean`                                                         | Whether the dropdown is disabled.                 |
 | `error`                          | `boolean`                                                         | Whether the dropdown has an error.                |
 
+## Methods
+
+| Method      | Return | Description                    |
+| ----------- | ------ | ------------------------------ |
+| `focus()`   | `void` | Open the dropdown manually.    |
+| `blur()`    | `void` | Close the dropdown manually.   |
+
 ## Customization
 
 You can customize the appearance and behavior of the dropdowns by using the provided props like `menuUpIcon`, `menuDownIcon`, `CustomDropdownItem`, `CustomDropdownInput`, and `menuContentStyle`.

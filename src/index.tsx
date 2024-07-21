@@ -10,6 +10,7 @@ import {
   Option,
   MultiSelectDropdownProps,
   MultiSelectDropdownItemProps,
+  DropdownRef,
 } from './types';
 
 export {
@@ -24,4 +25,5 @@ export {
   Option,
   MultiSelectDropdownProps,
   MultiSelectDropdownItemProps,
+  DropdownRef,
 };

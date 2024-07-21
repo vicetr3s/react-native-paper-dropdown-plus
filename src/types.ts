@@ -78,3 +78,8 @@ export type MultiSelectDropdownItemProps = {
   isLast: boolean;
   menuItemTestID?: string;
 };
+
+export type DropdownRef = {
+  blur: () => void;
+  focus: () => void;
+};

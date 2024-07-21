@@ -1,12 +1,15 @@
-import { useMemo } from 'react';
+import { forwardRef, useImperativeHandle, useMemo } from 'react';
 import { ScrollView, View } from 'react-native';
 import { Menu, TextInput, TouchableRipple } from 'react-native-paper';
 import DropdownInput from './dropdown-input';
 import MultiSelectDropdownItem from './multi-select-dropdown-item';
-import { MultiSelectDropdownProps } from './types';
+import { DropdownRef, MultiSelectDropdownProps } from './types';
 import useDropdown from './use-dropdown';
 
-function MultiSelectDropdown(props: MultiSelectDropdownProps) {
+function MultiSelectDropdown(
+  props: MultiSelectDropdownProps,
+  ref: React.Ref<DropdownRef>
+) {
   const {
     options,
     mode,
@@ -37,6 +40,7 @@ function MultiSelectDropdown(props: MultiSelectDropdownProps) {
   );
   const {
     enable,
+    setEnable,
     toggleMenu,
     onLayout,
     menuStyle,
@@ -44,6 +48,15 @@ function MultiSelectDropdown(props: MultiSelectDropdownProps) {
     dropdownLayout,
   } = useDropdown(maxMenuHeight);
   const rightIcon = enable ? menuUpIcon : menuDownIcon;
+
+  useImperativeHandle(ref, () => ({
+    focus() {
+      setEnable(true);
+    },
+    blur() {
+      setEnable(false);
+    },
+  }));
 
   return (
     <Menu
@@ -94,4 +107,4 @@ function MultiSelectDropdown(props: MultiSelectDropdownProps) {
   );
 }
 
-export default MultiSelectDropdown;
+export default forwardRef(MultiSelectDropdown);

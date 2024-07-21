@@ -145,6 +145,13 @@ export default function App() {
 | `disabled`                       | `boolean`                                                         | Whether the dropdown is disabled.                 |
 | `error`                          | `boolean`                                                         | Whether the dropdown has an error.                |
 
+## Methods
+
+| Method      | Return | Description                    |
+| ----------- | ------ | ------------------------------ |
+| `focus()`   | `void` | Open the dropdown manually.    |
+| `blur()`    | `void` | Close the dropdown manually.   |
+
 ## Latest Documentation
 
 - [https://fateh999.github.io/react-native-paper-dropdown](https://fateh999.github.io/react-native-paper-dropdown)

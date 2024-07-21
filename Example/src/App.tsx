@@ -1,7 +1,8 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { ScrollView, StyleSheet, View, ViewStyle } from 'react-native';
 import {
   Appbar,
+  Button,
   Divider,
   Headline,
   MD3DarkTheme,
@@ -17,6 +18,7 @@ import {
   MultiSelectDropdown,
   DropdownInputProps,
   DropdownItemProps,
+  DropdownRef,
 } from 'react-native-paper-dropdown';
 
 const OPTIONS = [
@@ -119,6 +121,7 @@ export default function App() {
   const [nightMode, setNightmode] = useState(false);
   const [gender, setGender] = useState<string>();
   const [colors, setColors] = useState<string[]>([]);
+  const refDropdown1 = useRef<DropdownRef>(null);
   const Theme = nightMode ? MD3DarkTheme : MD3LightTheme;
 
   return (
@@ -146,6 +149,7 @@ export default function App() {
               <View style={styles.spacer} />
               <Paragraph>Default Dropdown</Paragraph>
               <Dropdown
+                ref={refDropdown1}
                 label={'Gender'}
                 placeholder="Select Gender"
                 options={OPTIONS}
@@ -214,6 +218,25 @@ export default function App() {
                 onSelect={setColors}
                 mode={'outlined'}
               />
+
+              <View style={styles.spacer} />
+              <View style={styles.spacer} />
+
+              <Headline>References</Headline>
+              <View style={styles.spacer} />
+              <Button
+                mode={'contained'}
+                onPress={() => refDropdown1.current?.focus()}
+              >
+                Focus
+              </Button>
+              <View style={styles.spacer} />
+              <Button
+                mode={'contained'}
+                onPress={() => refDropdown1.current?.blur()}
+              >
+                Blur
+              </Button>
             </View>
           </ScrollView>
         </View>
