@@ -1,4 +1,4 @@
-import Dropdown from './dropdown';
+import Dropdown from './DropDown';
 import DropdownInput from './dropdown-input';
 import DropdownItem from './dropdown-item';
 import MultiSelectDropdownItem from './multi-select-dropdown-item';
@@ -10,6 +10,7 @@ import {
   Option,
   MultiSelectDropdownProps,
   MultiSelectDropdownItemProps,
+  DropdownRef,
 } from './types';
 
 export {
@@ -24,4 +25,5 @@ export {
   Option,
   MultiSelectDropdownProps,
   MultiSelectDropdownItemProps,
+  DropdownRef,
 };

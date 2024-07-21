@@ -1,4 +1,10 @@
-import { useCallback, useMemo, useState } from 'react';
+import React, {
+  forwardRef,
+  useCallback,
+  useImperativeHandle,
+  useMemo,
+  useState,
+} from 'react';
 import {
   Keyboard,
   ScrollView,
@@ -11,9 +17,12 @@ import {
 import { Menu, TextInput, TouchableRipple } from 'react-native-paper';
 import DropdownInput from './dropdown-input';
 import MultiSelectDropdownItem from './multi-select-dropdown-item';
-import { MultiSelectDropdownProps } from './types';
+import { DropdownRef, MultiSelectDropdownProps } from './types';
 
-function MultiSelectDropdown(props: MultiSelectDropdownProps) {
+function MultiSelectDropdown(
+  props: MultiSelectDropdownProps,
+  ref: React.Ref<DropdownRef>
+) {
   const [enable, setEnable] = useState(false);
   const { height } = useWindowDimensions();
   const {
@@ -71,6 +80,17 @@ function MultiSelectDropdown(props: MultiSelectDropdownProps) {
     [dropdownLayout.width]
   );
 
+  useImperativeHandle(ref, () => ({
+    focus() {
+      Keyboard.dismiss();
+      setEnable(true);
+    },
+    blur() {
+      Keyboard.dismiss();
+      setEnable(false);
+    },
+  }));
+
   return (
     <Menu
       testID={menuTestID}
@@ -120,4 +140,4 @@ function MultiSelectDropdown(props: MultiSelectDropdownProps) {
   );
 }
 
-export default MultiSelectDropdown;
+export default forwardRef(MultiSelectDropdown);

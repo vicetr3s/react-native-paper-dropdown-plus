@@ -1,4 +1,10 @@
-import { useCallback, useMemo, useState } from 'react';
+import React, {
+  forwardRef,
+  useCallback,
+  useImperativeHandle,
+  useMemo,
+  useState,
+} from 'react';
 import {
   Keyboard,
   ScrollView,
@@ -11,9 +17,9 @@ import {
 import { Menu, TextInput, TouchableRipple } from 'react-native-paper';
 import DropdownItem from './dropdown-item';
 import DropdownInput from './dropdown-input';
-import { DropdownProps } from './types';
+import { DropdownProps, DropdownRef } from './types';
 
-function Dropdown(props: DropdownProps) {
+function Dropdown(props: DropdownProps, ref: React.Ref<DropdownRef>) {
   const [enable, setEnable] = useState(false);
   const { height } = useWindowDimensions();
   const {
@@ -62,6 +68,17 @@ function Dropdown(props: DropdownProps) {
     }),
     [dropdownLayout.width]
   );
+
+  useImperativeHandle(ref, () => ({
+    focus() {
+      Keyboard.dismiss();
+      setEnable(true);
+    },
+    blur() {
+      Keyboard.dismiss();
+      setEnable(false);
+    },
+  }));
 
   return (
     <Menu
@@ -113,4 +130,4 @@ function Dropdown(props: DropdownProps) {
   );
 }
 
-export default Dropdown;
+export default forwardRef(Dropdown);
