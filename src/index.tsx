@@ -1,4 +1,4 @@
-import Dropdown from './DropDown';
+import Dropdown from './dropdown';
 import DropdownInput from './dropdown-input';
 import DropdownItem from './dropdown-item';
 import MultiSelectDropdownItem from './multi-select-dropdown-item';
