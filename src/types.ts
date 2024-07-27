@@ -1,5 +1,5 @@
 import { ForwardRefExoticComponent } from 'react';
-import { PressableProps, View, ViewStyle } from 'react-native';
+import { DimensionValue, PressableProps, View, ViewStyle } from 'react-native';
 import { TextInputLabelProp } from 'react-native-paper/lib/typescript/components/TextInput/types';
 import { TextInputProps } from 'react-native-paper';
 
@@ -20,12 +20,13 @@ export type Option = {
 
 export type DropdownProps = {
   value?: string;
-  onSelect?: (value: string) => void;
+  onSelect?: (value?: string) => void;
   options: Option[];
   menuUpIcon?: JSX.Element;
   menuDownIcon?: JSX.Element;
   maxMenuHeight?: number;
   menuContentStyle?: ViewStyle;
+  CustomMenuHeader?: (props: DropdownHeaderProps) => JSX.Element;
   CustomDropdownItem?: (props: DropdownItemProps) => JSX.Element;
   CustomDropdownInput?: (props: DropdownInputProps) => JSX.Element;
   Touchable?: ForwardRefExoticComponent<
@@ -44,6 +45,7 @@ export type MultiSelectDropdownProps = {
   options: Option[];
   menuUpIcon?: JSX.Element;
   menuDownIcon?: JSX.Element;
+  CustomMenuHeader?: (props: DropdownHeaderProps) => JSX.Element;
   Touchable?: ForwardRefExoticComponent<
     PressableProps & React.RefAttributes<View>
   >;
@@ -64,7 +66,7 @@ export type DropdownItemProps = {
   option: Option;
   value?: string;
   onSelect?: (value: string) => void;
-  width: number;
+  width: DimensionValue;
   toggleMenu: () => void;
   isLast: boolean;
   menuItemTestID?: string;
@@ -74,9 +76,17 @@ export type MultiSelectDropdownItemProps = {
   option: Option;
   value?: string[];
   onSelect?: (value: string[]) => void;
-  width: number;
+  width: DimensionValue;
   isLast: boolean;
   menuItemTestID?: string;
+};
+
+export type DropdownHeaderProps = {
+  value?: string | string[];
+  label?: TextInputLabelProp;
+  multiSelect: boolean;
+  toggleMenu: () => void;
+  resetMenu: () => void;
 };
 
 export type DropdownRef = {

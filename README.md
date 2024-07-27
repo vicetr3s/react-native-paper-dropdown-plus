@@ -103,25 +103,26 @@ export default function App() {
 
 ### `DropdownProps`
 
-| Prop                  | Type                                                              | Description                                  |
-| --------------------- | ----------------------------------------------------------------- | -------------------------------------------- |
-| `value`               | `string`                                                          | The currently selected value.                |
-| `onSelect`            | `(value: string) => void`                                         | Callback function to handle value selection. |
-| `options`             | `Option[]`                                                        | Array of options for the dropdown.           |
-| `menuUpIcon`          | `JSX.Element`                                                     | Custom icon for menu up state.               |
-| `menuDownIcon`        | `JSX.Element`                                                     | Custom icon for menu down state.             |
-| `maxMenuHeight`       | `number`                                                          | Maximum height of the dropdown menu.         |
-| `menuContentStyle`    | `ViewStyle`                                                       | Style for the dropdown menu content.         |
-| `CustomDropdownItem`  | `(props: DropdownItemProps) => JSX.Element`                       | Custom component for dropdown item.          |
-| `CustomDropdownInput` | `(props: DropdownInputProps) => JSX.Element`                      | Custom component for dropdown input.         |
-| `Touchable`           | `ForwardRefExoticComponent<PressableProps & RefAttributes<View>>` | Custom touchable component for the dropdown. |
-| `testID`              | `string`                                                          | Test ID for the dropdown component.          |
-| `menuTestID`          | `string`                                                          | Test ID for the dropdown menu.               |
-| `placeholder`         | `string`                                                          | Placeholder text for the dropdown input.     |
-| `label`               | `TextInputLabelProp`                                              | Label for the dropdown input.                |
-| `mode`                | `'flat' \| 'outlined'`                                            | Mode for the dropdown input.                 |
-| `disabled`            | `boolean`                                                         | Whether the dropdown is disabled.            |
-| `error`               | `boolean`                                                         | Whether the dropdown has an error.           |
+| Prop                  | Type                                                              | Description                                    |
+| --------------------- | ----------------------------------------------------------------- | ---------------------------------------------- |
+| `value`               | `string`                                                          | The currently selected value.                  |
+| `onSelect`            | `(value: string) => void`                                         | Callback function to handle value selection.   |
+| `options`             | `Option[]`                                                        | Array of options for the dropdown.             |
+| `menuUpIcon`          | `JSX.Element`                                                     | Custom icon for menu up state.                 |
+| `menuDownIcon`        | `JSX.Element`                                                     | Custom icon for menu down state.               |
+| `maxMenuHeight`       | `number`                                                          | Maximum height of the dropdown menu.           |
+| `menuContentStyle`    | `ViewStyle`                                                       | Style for the dropdown menu content.           |
+| `CustomDropdownItem`  | `(props: DropdownItemProps) => JSX.Element`                       | Custom component for dropdown item.            |
+| `CustomDropdownInput` | `(props: DropdownInputProps) => JSX.Element`                      | Custom component for dropdown input.           |
+| `CustomMenuHeader`    | `(props: DropdownHeaderProps) => JSX.Element`                     | Custom component for the dropdown menu header. |
+| `Touchable`           | `ForwardRefExoticComponent<PressableProps & RefAttributes<View>>` | Custom touchable component for the dropdown.   |
+| `testID`              | `string`                                                          | Test ID for the dropdown component.            |
+| `menuTestID`          | `string`                                                          | Test ID for the dropdown menu.                 |
+| `placeholder`         | `string`                                                          | Placeholder text for the dropdown input.       |
+| `label`               | `TextInputLabelProp`                                              | Label for the dropdown input.                  |
+| `mode`                | `'flat' \| 'outlined'`                                            | Mode for the dropdown input.                   |
+| `disabled`            | `boolean`                                                         | Whether the dropdown is disabled.              |
+| `error`               | `boolean`                                                         | Whether the dropdown has an error.             |
 
 ### `MultiSelectDropdownProps`
 
@@ -137,6 +138,7 @@ export default function App() {
 | `menuContentStyle`               | `ViewStyle`                                                       | Style for the dropdown menu content.              |
 | `CustomMultiSelectDropdownItem`  | `(props: MultiSelectDropdownItemProps) => JSX.Element`            | Custom component for multi-select dropdown item.  |
 | `CustomMultiSelectDropdownInput` | `(props: DropdownInputProps) => JSX.Element`                      | Custom component for multi-select dropdown input. |
+| `CustomMenuHeader`               | `(props: DropdownHeaderProps) => JSX.Element`                     | Custom component for the dropdown menu header.    |
 | `testID`                         | `string`                                                          | Test ID for the dropdown component.               |
 | `menuTestID`                     | `string`                                                          | Test ID for the dropdown menu.                    |
 | `placeholder`                    | `string`                                                          | Placeholder text for the dropdown input.          |
@@ -147,10 +149,10 @@ export default function App() {
 
 ## Methods
 
-| Method      | Return | Description                    |
-| ----------- | ------ | ------------------------------ |
-| `focus()`   | `void` | Open the dropdown manually.    |
-| `blur()`    | `void` | Close the dropdown manually.   |
+| Method    | Return | Description                  |
+| --------- | ------ | ---------------------------- |
+| `focus()` | `void` | Open the dropdown manually.  |
+| `blur()`  | `void` | Close the dropdown manually. |
 
 ## Latest Documentation
 

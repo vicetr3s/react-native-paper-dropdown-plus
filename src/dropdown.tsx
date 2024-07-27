@@ -4,7 +4,8 @@ import DropdownItem from './dropdown-item';
 import DropdownInput from './dropdown-input';
 import { DropdownProps, DropdownRef } from './types';
 import useDropdown from './use-dropdown';
-import { forwardRef, useImperativeHandle } from 'react';
+import { forwardRef, useCallback, useImperativeHandle, useMemo } from 'react';
+import DropdownHeader from './dropdown-header';
 
 function Dropdown(props: DropdownProps, ref: React.Ref<DropdownRef>) {
   const {
@@ -25,6 +26,7 @@ function Dropdown(props: DropdownProps, ref: React.Ref<DropdownRef>) {
     error = false,
     testID,
     menuTestID,
+    CustomMenuHeader = DropdownHeader,
   } = props;
   const selectedLabel = options.find((option) => option.value === value)?.label;
   const {
@@ -37,6 +39,7 @@ function Dropdown(props: DropdownProps, ref: React.Ref<DropdownRef>) {
     dropdownLayout,
   } = useDropdown(maxMenuHeight);
   const rightIcon = enable ? menuUpIcon : menuDownIcon;
+  const contentStyle = useMemo(() => ({ paddingVertical: 0 }), []);
 
   useImperativeHandle(ref, () => ({
     focus() {
@@ -46,6 +49,11 @@ function Dropdown(props: DropdownProps, ref: React.Ref<DropdownRef>) {
       setEnable(false);
     },
   }));
+
+  const resetMenu = useCallback(() => {
+    onSelect?.('');
+    toggleMenu();
+  }, [onSelect, toggleMenu]);
 
   return (
     <Menu
@@ -74,9 +82,16 @@ function Dropdown(props: DropdownProps, ref: React.Ref<DropdownRef>) {
           </View>
         </Touchable>
       }
-      contentStyle={menuContentStyle}
+      contentStyle={[contentStyle, menuContentStyle]}
       testID={menuTestID}
     >
+      <CustomMenuHeader
+        label={label}
+        toggleMenu={toggleMenu}
+        resetMenu={resetMenu}
+        value={value}
+        multiSelect={false}
+      />
       <ScrollView style={scrollViewStyle} bounces={false}>
         {options.map((option, index) => {
           return (

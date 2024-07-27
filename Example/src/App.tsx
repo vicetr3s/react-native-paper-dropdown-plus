@@ -222,6 +222,19 @@ export default function App() {
               <View style={styles.spacer} />
               <View style={styles.spacer} />
 
+              <Headline>Reset</Headline>
+              <View style={styles.spacer} />
+              <Button
+                mode={'contained'}
+                onPress={() => {
+                  setGender(undefined);
+                }}
+              >
+                Reset
+              </Button>
+
+              <View style={styles.spacer} />
+
               <Headline>References</Headline>
               <View style={styles.spacer} />
               <Button
