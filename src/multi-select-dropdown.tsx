@@ -26,6 +26,7 @@ function MultiSelectDropdown(
     statusBarHeight = Platform.OS === 'android'
       ? StatusBar.currentHeight
       : undefined,
+    hideMenuHeader = false,
     Touchable = TouchableRipple,
     disabled = false,
     error = false,
@@ -99,7 +100,7 @@ function MultiSelectDropdown(
       }
       contentStyle={menuContentStyle}
     >
-      {!props.hideMenuHeader && (
+      {!hideMenuHeader && (
         <CustomMenuHeader
           label={label}
           toggleMenu={toggleMenu}

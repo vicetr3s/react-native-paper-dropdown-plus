@@ -23,6 +23,7 @@ function Dropdown(props: DropdownProps, ref: React.Ref<DropdownRef>) {
     statusBarHeight = Platform.OS === 'android'
       ? StatusBar.currentHeight
       : undefined,
+    hideMenuHeader = false,
     Touchable = TouchableRipple,
     disabled = false,
     error = false,
@@ -89,7 +90,7 @@ function Dropdown(props: DropdownProps, ref: React.Ref<DropdownRef>) {
       contentStyle={[contentStyle, menuContentStyle]}
       testID={menuTestID}
     >
-      {!props.hideMenuHeader && (
+      {!hideMenuHeader && (
         <CustomMenuHeader
           label={label}
           toggleMenu={toggleMenu}
