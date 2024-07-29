@@ -1,5 +1,5 @@
 import { forwardRef, useCallback, useImperativeHandle, useMemo } from 'react';
-import { ScrollView, View } from 'react-native';
+import { Platform, ScrollView, StatusBar, View } from 'react-native';
 import { Menu, TextInput, TouchableRipple } from 'react-native-paper';
 import DropdownInput from './dropdown-input';
 import MultiSelectDropdownItem from './multi-select-dropdown-item';
@@ -12,6 +12,8 @@ function MultiSelectDropdown(
   ref: React.Ref<DropdownRef>
 ) {
   const {
+    testID,
+    menuTestID,
     options,
     mode,
     placeholder,
@@ -19,16 +21,18 @@ function MultiSelectDropdown(
     menuUpIcon = <TextInput.Icon icon={'menu-up'} pointerEvents="none" />,
     menuDownIcon = <TextInput.Icon icon={'menu-down'} pointerEvents="none" />,
     value = [],
-    onSelect,
     menuContentStyle = { paddingVertical: 0 },
     maxMenuHeight,
-    CustomMultiSelectDropdownItem = MultiSelectDropdownItem,
-    CustomMultiSelectDropdownInput = DropdownInput,
+    statusBarHeight = Platform.OS === 'android'
+      ? StatusBar.currentHeight
+      : undefined,
+    hideMenuHeader = false,
     Touchable = TouchableRipple,
     disabled = false,
     error = false,
-    testID,
-    menuTestID,
+    onSelect,
+    CustomMultiSelectDropdownItem = MultiSelectDropdownItem,
+    CustomMultiSelectDropdownInput = DropdownInput,
     CustomMenuHeader = DropdownHeader,
   } = props;
 
@@ -72,6 +76,7 @@ function MultiSelectDropdown(
       onDismiss={toggleMenu}
       style={menuStyle}
       elevation={5}
+      statusBarHeight={statusBarHeight}
       keyboardShouldPersistTaps={'handled'}
       anchor={
         <Touchable
@@ -95,13 +100,15 @@ function MultiSelectDropdown(
       }
       contentStyle={menuContentStyle}
     >
-      <CustomMenuHeader
-        label={label}
-        toggleMenu={toggleMenu}
-        resetMenu={resetMenu}
-        value={value}
-        multiSelect
-      />
+      {!hideMenuHeader && (
+        <CustomMenuHeader
+          label={label}
+          toggleMenu={toggleMenu}
+          resetMenu={resetMenu}
+          value={value}
+          multiSelect
+        />
+      )}
       <ScrollView style={scrollViewStyle} bounces={false}>
         {options.map((option, index) => {
           return (

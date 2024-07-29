@@ -19,44 +19,48 @@ export type Option = {
 };
 
 export type DropdownProps = {
+  testID?: string;
+  menuTestID?: string;
   value?: string;
-  onSelect?: (value?: string) => void;
   options: Option[];
   menuUpIcon?: JSX.Element;
   menuDownIcon?: JSX.Element;
   maxMenuHeight?: number;
   menuContentStyle?: ViewStyle;
-  CustomMenuHeader?: (props: DropdownHeaderProps) => JSX.Element;
-  CustomDropdownItem?: (props: DropdownItemProps) => JSX.Element;
-  CustomDropdownInput?: (props: DropdownInputProps) => JSX.Element;
+  hideMenuHeader?: boolean;
+  statusBarHeight?: number;
   Touchable?: ForwardRefExoticComponent<
     PressableProps & React.RefAttributes<View>
   >;
-  testID?: string;
-  menuTestID?: string;
+  onSelect?: (value?: string) => void;
+  CustomMenuHeader?: (props: DropdownHeaderProps) => JSX.Element;
+  CustomDropdownItem?: (props: DropdownItemProps) => JSX.Element;
+  CustomDropdownInput?: (props: DropdownInputProps) => JSX.Element;
 } & Pick<
   TextInputProps,
   'placeholder' | 'label' | 'mode' | 'disabled' | 'error'
 >;
 
 export type MultiSelectDropdownProps = {
+  testID?: string;
+  menuTestID?: string;
   value?: string[];
-  onSelect?: (value: string[]) => void;
   options: Option[];
   menuUpIcon?: JSX.Element;
   menuDownIcon?: JSX.Element;
-  CustomMenuHeader?: (props: DropdownHeaderProps) => JSX.Element;
+  maxMenuHeight?: number;
+  menuContentStyle?: ViewStyle;
+  hideMenuHeader?: boolean;
+  statusBarHeight?: number;
   Touchable?: ForwardRefExoticComponent<
     PressableProps & React.RefAttributes<View>
   >;
-  maxMenuHeight?: number;
-  menuContentStyle?: ViewStyle;
+  onSelect?: (value: string[]) => void;
+  CustomMenuHeader?: (props: DropdownHeaderProps) => JSX.Element;
   CustomMultiSelectDropdownItem?: (
     props: MultiSelectDropdownItemProps
   ) => JSX.Element;
   CustomMultiSelectDropdownInput?: (props: DropdownInputProps) => JSX.Element;
-  testID?: string;
-  menuTestID?: string;
 } & Pick<
   TextInputProps,
   'placeholder' | 'label' | 'mode' | 'disabled' | 'error'

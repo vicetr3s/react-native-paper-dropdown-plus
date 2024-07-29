@@ -1,4 +1,4 @@
-import { ScrollView, View } from 'react-native';
+import { Platform, ScrollView, StatusBar, View } from 'react-native';
 import { Menu, TextInput, TouchableRipple } from 'react-native-paper';
 import DropdownItem from './dropdown-item';
 import DropdownInput from './dropdown-input';
@@ -9,6 +9,8 @@ import DropdownHeader from './dropdown-header';
 
 function Dropdown(props: DropdownProps, ref: React.Ref<DropdownRef>) {
   const {
+    testID,
+    menuTestID,
     options,
     mode,
     placeholder,
@@ -16,16 +18,18 @@ function Dropdown(props: DropdownProps, ref: React.Ref<DropdownRef>) {
     menuUpIcon = <TextInput.Icon icon={'menu-up'} pointerEvents="none" />,
     menuDownIcon = <TextInput.Icon icon={'menu-down'} pointerEvents="none" />,
     value,
-    onSelect,
     maxMenuHeight,
     menuContentStyle,
-    CustomDropdownItem = DropdownItem,
-    CustomDropdownInput = DropdownInput,
+    statusBarHeight = Platform.OS === 'android'
+      ? StatusBar.currentHeight
+      : undefined,
+    hideMenuHeader = false,
     Touchable = TouchableRipple,
     disabled = false,
     error = false,
-    testID,
-    menuTestID,
+    onSelect,
+    CustomDropdownItem = DropdownItem,
+    CustomDropdownInput = DropdownInput,
     CustomMenuHeader = DropdownHeader,
   } = props;
   const selectedLabel = options.find((option) => option.value === value)?.label;
@@ -61,6 +65,7 @@ function Dropdown(props: DropdownProps, ref: React.Ref<DropdownRef>) {
       onDismiss={toggleMenu}
       style={menuStyle}
       elevation={5}
+      statusBarHeight={statusBarHeight}
       keyboardShouldPersistTaps={'handled'}
       anchor={
         <Touchable
@@ -85,13 +90,15 @@ function Dropdown(props: DropdownProps, ref: React.Ref<DropdownRef>) {
       contentStyle={[contentStyle, menuContentStyle]}
       testID={menuTestID}
     >
-      <CustomMenuHeader
-        label={label}
-        toggleMenu={toggleMenu}
-        resetMenu={resetMenu}
-        value={value}
-        multiSelect={false}
-      />
+      {!hideMenuHeader && (
+        <CustomMenuHeader
+          label={label}
+          toggleMenu={toggleMenu}
+          resetMenu={resetMenu}
+          value={value}
+          multiSelect={false}
+        />
+      )}
       <ScrollView style={scrollViewStyle} bounces={false}>
         {options.map((option, index) => {
           return (
