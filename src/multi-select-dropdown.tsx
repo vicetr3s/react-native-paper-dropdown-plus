@@ -20,7 +20,7 @@ function MultiSelectDropdown(
     label,
     menuUpIcon = <TextInput.Icon icon={'menu-up'} pointerEvents="none" />,
     menuDownIcon = <TextInput.Icon icon={'menu-down'} pointerEvents="none" />,
-    value = [],
+    value,
     menuContentStyle = { paddingVertical: 0 },
     maxMenuHeight,
     statusBarHeight = Platform.OS === 'android'

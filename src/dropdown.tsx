@@ -55,7 +55,7 @@ function Dropdown(props: DropdownProps, ref: React.Ref<DropdownRef>) {
   }));
 
   const resetMenu = useCallback(() => {
-    onSelect?.('');
+    onSelect?.(undefined);
     toggleMenu();
   }, [onSelect, toggleMenu]);
 

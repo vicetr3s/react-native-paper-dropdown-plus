@@ -44,7 +44,7 @@ export type DropdownProps = {
 export type MultiSelectDropdownProps = {
   testID?: string;
   menuTestID?: string;
-  value?: string[];
+  value: string[];
   options: Option[];
   menuUpIcon?: JSX.Element;
   menuDownIcon?: JSX.Element;
