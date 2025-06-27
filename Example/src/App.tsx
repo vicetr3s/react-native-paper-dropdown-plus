@@ -167,6 +167,7 @@ export default function App() {
                 value={gender}
                 onSelect={setGender}
                 mode="outlined"
+                isFlatList
               />
               <View style={styles.spacer} />
               <Paragraph>Custom Dropdown</Paragraph>
