@@ -114,6 +114,10 @@ export default function App() {
 | `menuDownIcon`        | `JSX.Element`                                                     | Custom icon for menu down state.                     |
 | `maxMenuHeight`       | `number`                                                          | Maximum height of the dropdown menu.                 |
 | `menuContentStyle`    | `ViewStyle`                                                       | Style for the dropdown menu content.                 |
+| `listContainerStyle`  | `StyleProp<ViewStyle>`                                            | Style for the list container (FlatList/ScrollView).  |
+| `isFlatList`          | `boolean`                                                         | Whether to use FlatList for rendering (default: false). |
+| `flatListProps`       | `Omit<FlatListProps<Option>, 'data' \| 'renderItem' \| 'keyExtractor'>` | Additional props for FlatList (only when isFlatList is true). |
+| `scrollViewProps`     | `ScrollViewProps`                                                 | Additional props for ScrollView (only when isFlatList is false). |
 | `CustomDropdownItem`  | `(props: DropdownItemProps) => JSX.Element`                       | Custom component for dropdown item.                  |
 | `CustomDropdownInput` | `(props: DropdownInputProps) => JSX.Element`                      | Custom component for dropdown input.                 |
 | `CustomMenuHeader`    | `(props: DropdownHeaderProps) => JSX.Element`                     | Custom component for the dropdown menu header.       |
@@ -140,6 +144,10 @@ export default function App() {
 | `Touchable`                      | `ForwardRefExoticComponent<PressableProps & RefAttributes<View>>` | Custom touchable component for the dropdown.         |
 | `maxMenuHeight`                  | `number`                                                          | Maximum height of the dropdown menu.                 |
 | `menuContentStyle`               | `ViewStyle`                                                       | Style for the dropdown menu content.                 |
+| `listContainerStyle`             | `StyleProp<ViewStyle>`                                            | Style for the list container (FlatList/ScrollView).  |
+| `isFlatList`                     | `boolean`                                                         | Whether to use FlatList for rendering (default: false). |
+| `flatListProps`                  | `Omit<FlatListProps<Option>, 'data' \| 'renderItem' \| 'keyExtractor'>` | Additional props for FlatList (only when isFlatList is true). |
+| `scrollViewProps`                | `ScrollViewProps`                                                 | Additional props for ScrollView (only when isFlatList is false). |
 | `CustomMultiSelectDropdownItem`  | `(props: MultiSelectDropdownItemProps) => JSX.Element`            | Custom component for multi-select dropdown item.     |
 | `CustomMultiSelectDropdownInput` | `(props: DropdownInputProps) => JSX.Element`                      | Custom component for multi-select dropdown input.    |
 | `CustomMenuHeader`               | `(props: DropdownHeaderProps) => JSX.Element`                     | Custom component for the dropdown menu header.       |
