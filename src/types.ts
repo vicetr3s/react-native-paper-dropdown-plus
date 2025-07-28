@@ -4,6 +4,9 @@ import {
   NativeScrollEvent,
   NativeSyntheticEvent,
   PressableProps,
+  FlatListProps,
+  ScrollViewProps,
+  StyleProp,
   View,
   ViewStyle,
 } from 'react-native';
@@ -34,6 +37,7 @@ export type DropdownProps = {
   menuDownIcon?: JSX.Element;
   maxMenuHeight?: number;
   menuContentStyle?: ViewStyle;
+  listContainerStyle?: StyleProp<ViewStyle>;
   hideMenuHeader?: boolean;
   statusBarHeight?: number;
   Touchable?: ForwardRefExoticComponent<
@@ -49,7 +53,8 @@ export type DropdownProps = {
 } & Pick<
   TextInputProps,
   'placeholder' | 'label' | 'mode' | 'disabled' | 'error'
->;
+> &
+  ListRenderProps;
 
 export type MultiSelectDropdownProps = {
   testID?: string;
@@ -60,6 +65,7 @@ export type MultiSelectDropdownProps = {
   menuDownIcon?: JSX.Element;
   maxMenuHeight?: number;
   menuContentStyle?: ViewStyle;
+  listContainerStyle?: StyleProp<ViewStyle>;
   hideMenuHeader?: boolean;
   statusBarHeight?: number;
   Touchable?: ForwardRefExoticComponent<
@@ -77,7 +83,8 @@ export type MultiSelectDropdownProps = {
 } & Pick<
   TextInputProps,
   'placeholder' | 'label' | 'mode' | 'disabled' | 'error'
->;
+> &
+  ListRenderProps;
 
 export type DropdownItemProps = {
   option: Option;
@@ -110,3 +117,18 @@ export type DropdownRef = {
   blur: () => void;
   focus: () => void;
 };
+
+export type ListRenderProps =
+  | {
+      isFlatList: true;
+      flatListProps?: Omit<
+        FlatListProps<Option>,
+        'data' | 'renderItem' | 'keyExtractor'
+      >;
+      scrollViewProps?: never;
+    }
+  | {
+      isFlatList?: false;
+      flatListProps?: never;
+      scrollViewProps?: ScrollViewProps;
+    };
