@@ -1,7 +1,7 @@
 {
-  "name": "react-native-paper-dropdown",
+  "name": "react-native-paper-dropdown-plus",
   "version": "2.3.1",
-  "description": "Dropdown component using React Native Paper TextInput and Menu, now also with multiselect",
+  "description": "Dropdown component using React Native Paper TextInput and Menu, now also with multiselect. This is a maintained fork of the original package by @fateh999.",
   "source": "./src/index.tsx",
   "main": "./lib/commonjs/index.js",
   "module": "./lib/module/index.js",
@@ -43,18 +43,23 @@
   "keywords": [
     "react-native",
     "ios",
-    "android"
+    "android",
+    "dropdown",
+    "react-native-paper",
+    "form",
+    "select",
+    "menu"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fateh999/react-native-paper-dropdown.git"
+    "url": "https://github.com/vicetr3s/react-native-paper-dropdown-plus"
   },
-  "author": "Fateh Farooqui <farooquifateh184@gmail.com> (https://github.com/fateh999)",
+  "author": "Vicente Díaz (https://github.com/vicetr3s)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/fateh999/react-native-paper-dropdown/issues"
+    "url": "https://github.com/vicetr3s/react-native-paper-dropdown-plus/issues"
   },
-  "homepage": "https://github.com/fateh999/react-native-paper-dropdown#readme",
+  "homepage": "https://github.com/vicetr3s/react-native-paper-dropdown-plus#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
