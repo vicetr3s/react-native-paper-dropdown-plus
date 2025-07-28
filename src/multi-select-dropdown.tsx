@@ -44,6 +44,9 @@ function MultiSelectDropdown(
     menuMode = 'flat',
     inputStyle,
     inputOutlineStyle,
+    headerTitle,
+    headerTitleStyle,
+    headerStyle,
     onSelect,
     onScroll,
     onScrollBeginDrag,
@@ -144,7 +147,9 @@ function MultiSelectDropdown(
     >
       {!hideMenuHeader && (
         <CustomMenuHeader
-          label={label}
+          headerStyle={headerStyle}
+          headerTitle={headerTitle}
+          headerTitleStyle={headerTitleStyle}
           toggleMenu={toggleMenu}
           resetMenu={resetMenu}
           value={value}

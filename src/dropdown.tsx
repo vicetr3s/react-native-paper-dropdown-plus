@@ -41,6 +41,9 @@ function Dropdown(props: DropdownProps, ref: Ref<DropdownRef>) {
     error = false,
     menuAnchorPosition = 'bottom',
     menuMode = 'flat',
+    headerTitle,
+    headerTitleStyle,
+    headerStyle,
     onSelect,
     onScroll,
     onScrollBeginDrag,
@@ -136,7 +139,9 @@ function Dropdown(props: DropdownProps, ref: Ref<DropdownRef>) {
     >
       {!hideMenuHeader && (
         <CustomMenuHeader
-          label={label}
+          headerStyle={headerStyle}
+          headerTitle={headerTitle}
+          headerTitleStyle={headerTitleStyle}
           toggleMenu={toggleMenu}
           resetMenu={resetMenu}
           value={value}

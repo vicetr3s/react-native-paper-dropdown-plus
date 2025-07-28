@@ -7,6 +7,7 @@ import {
   PressableProps,
   ScrollViewProps,
   StyleProp,
+  TextStyle,
   View,
   ViewStyle,
 } from 'react-native';
@@ -42,6 +43,9 @@ export type DropdownProps = {
   listContainerStyle?: StyleProp<ViewStyle>;
   inputStyle?: StyleProp<ViewStyle>;
   inputOutlineStyle?: StyleProp<ViewStyle>;
+  headerTitle?: ReactElement | string;
+  headerTitleStyle?: StyleProp<TextStyle>;
+  headerStyle?: StyleProp<ViewStyle>;
   hideMenuHeader?: boolean;
   statusBarHeight?: number;
   menuAnchorPosition?: 'top' | 'bottom';
@@ -76,6 +80,9 @@ export type MultiSelectDropdownProps = {
   menuMode?: 'flat' | 'elevated';
   inputStyle?: StyleProp<ViewStyle>;
   inputOutlineStyle?: StyleProp<ViewStyle>;
+  headerTitle?: ReactElement | string;
+  headerTitleStyle?: StyleProp<TextStyle>;
+  headerStyle?: StyleProp<ViewStyle>;
   Touchable?: ForwardRefExoticComponent<PressableProps & RefAttributes<View>>;
   onSelect?: (value: string[]) => void;
   CustomMenuHeader?: (props: DropdownHeaderProps) => ReactElement;
@@ -113,7 +120,9 @@ export type MultiSelectDropdownItemProps = {
 
 export type DropdownHeaderProps = {
   value?: string | string[];
-  label?: TextInputLabelProp;
+  headerTitle?: ReactElement | string;
+  headerTitleStyle?: StyleProp<TextStyle>;
+  headerStyle?: StyleProp<ViewStyle>;
   multiSelect: boolean;
   toggleMenu: () => void;
   resetMenu: () => void;
