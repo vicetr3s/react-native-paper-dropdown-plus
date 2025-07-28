@@ -4,10 +4,16 @@ import DropdownItem from './dropdown-item';
 import DropdownInput from './dropdown-input';
 import { DropdownProps, DropdownRef, Option } from './types';
 import useDropdown from './use-dropdown';
-import { forwardRef, useCallback, useImperativeHandle, useMemo } from 'react';
+import {
+  forwardRef,
+  Ref,
+  useCallback,
+  useImperativeHandle,
+  useMemo,
+} from 'react';
 import DropdownHeader from './dropdown-header';
 
-function Dropdown(props: DropdownProps, ref: React.Ref<DropdownRef>) {
+function Dropdown(props: DropdownProps, ref: Ref<DropdownRef>) {
   const {
     testID,
     menuTestID,
@@ -21,6 +27,8 @@ function Dropdown(props: DropdownProps, ref: React.Ref<DropdownRef>) {
     maxMenuHeight,
     menuContentStyle,
     listContainerStyle,
+    inputStyle,
+    inputOutlineStyle,
     statusBarHeight = Platform.OS === 'android'
       ? StatusBar.currentHeight
       : undefined,
@@ -31,6 +39,8 @@ function Dropdown(props: DropdownProps, ref: React.Ref<DropdownRef>) {
     Touchable = TouchableRipple,
     disabled = false,
     error = false,
+    menuAnchorPosition = 'bottom',
+    menuMode = 'flat',
     onSelect,
     onScroll,
     onScrollBeginDrag,
@@ -92,12 +102,13 @@ function Dropdown(props: DropdownProps, ref: React.Ref<DropdownRef>) {
 
   return (
     <Menu
+      mode={menuMode}
+      statusBarHeight={statusBarHeight}
       visible={enable}
       onDismiss={toggleMenu}
       style={menuStyle}
-      elevation={5}
-      statusBarHeight={statusBarHeight}
       keyboardShouldPersistTaps={'handled'}
+      anchorPosition={menuAnchorPosition}
       anchor={
         <Touchable
           testID={testID}
@@ -114,6 +125,8 @@ function Dropdown(props: DropdownProps, ref: React.Ref<DropdownRef>) {
               mode={mode}
               disabled={disabled}
               error={error}
+              style={inputStyle}
+              outlineStyle={inputOutlineStyle}
             />
           </View>
         </Touchable>

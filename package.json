@@ -179,6 +179,6 @@
     "version": "0.38.2"
   },
   "dependencies": {
-    "react-native-paper": "^5.12.3"
+    "react-native-paper": "^5.14.5"
   }
 }

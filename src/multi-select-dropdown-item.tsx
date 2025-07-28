@@ -1,5 +1,5 @@
-import { useCallback, useMemo, Fragment } from 'react';
-import { useTheme, Menu, Divider, Checkbox } from 'react-native-paper';
+import { Fragment, useCallback, useMemo } from 'react';
+import { Checkbox, Divider, Menu, useTheme } from 'react-native-paper';
 import { View, ViewStyle } from 'react-native';
 import { MultiSelectDropdownItemProps } from './types';
 

@@ -10,6 +10,8 @@ function DropdownInput(props: DropdownInputProps) {
     mode,
     disabled,
     error,
+    style,
+    outlineStyle,
   } = props;
 
   return (
@@ -22,6 +24,8 @@ function DropdownInput(props: DropdownInputProps) {
       editable={false}
       disabled={disabled}
       error={error}
+      style={style}
+      outlineStyle={outlineStyle}
     />
   );
 }

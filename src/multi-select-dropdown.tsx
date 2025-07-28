@@ -1,4 +1,10 @@
-import { forwardRef, useCallback, useImperativeHandle, useMemo } from 'react';
+import {
+  forwardRef,
+  Ref,
+  useCallback,
+  useImperativeHandle,
+  useMemo,
+} from 'react';
 import { FlatList, Platform, ScrollView, StatusBar, View } from 'react-native';
 import { Menu, TextInput, TouchableRipple } from 'react-native-paper';
 import DropdownInput from './dropdown-input';
@@ -9,7 +15,7 @@ import DropdownHeader from './dropdown-header';
 
 function MultiSelectDropdown(
   props: MultiSelectDropdownProps,
-  ref: React.Ref<DropdownRef>
+  ref: Ref<DropdownRef>
 ) {
   const {
     testID,
@@ -34,6 +40,10 @@ function MultiSelectDropdown(
     Touchable = TouchableRipple,
     disabled = false,
     error = false,
+    menuAnchorPosition = 'top',
+    menuMode = 'flat',
+    inputStyle,
+    inputOutlineStyle,
     onSelect,
     onScroll,
     onScrollBeginDrag,
@@ -100,13 +110,14 @@ function MultiSelectDropdown(
 
   return (
     <Menu
+      mode={menuMode}
       testID={menuTestID}
       visible={enable}
       onDismiss={toggleMenu}
       style={menuStyle}
-      elevation={5}
       statusBarHeight={statusBarHeight}
       keyboardShouldPersistTaps={'handled'}
+      anchorPosition={menuAnchorPosition}
       anchor={
         <Touchable
           testID={testID}
@@ -116,6 +127,8 @@ function MultiSelectDropdown(
         >
           <View pointerEvents="none">
             <CustomMultiSelectDropdownInput
+              style={inputStyle}
+              outlineStyle={inputOutlineStyle}
               placeholder={placeholder}
               label={label}
               rightIcon={rightIcon}
@@ -135,7 +148,7 @@ function MultiSelectDropdown(
           toggleMenu={toggleMenu}
           resetMenu={resetMenu}
           value={value}
-          multiSelect
+          multiSelect={true}
         />
       )}
 

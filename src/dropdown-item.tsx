@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useTheme, Menu, Divider } from 'react-native-paper';
+import { Divider, Menu, useTheme } from 'react-native-paper';
 import { Fragment } from 'react/jsx-runtime';
 import { DropdownItemProps } from './types';
 
@@ -11,18 +11,10 @@ function DropdownItem(props: DropdownItemProps) {
   const titleStyle = useMemo(
     () => ({
       color:
-        value === option.value
-          ? theme.colors.primary
-          : theme.colors.onSurface,
+        value === option.value ? theme.colors.primary : theme.colors.onSurface,
       width: width,
     }),
-    [
-      option.value,
-      theme.colors.onSurface,
-      theme.colors.primary,
-      value,
-      width,
-    ]
+    [option.value, theme.colors.onSurface, theme.colors.primary, value, width]
   );
   const onPress = () => {
     if (option.value) {

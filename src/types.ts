@@ -1,10 +1,10 @@
-import { ForwardRefExoticComponent } from 'react';
+import { ForwardRefExoticComponent, ReactElement, RefAttributes } from 'react';
 import {
   DimensionValue,
+  FlatListProps,
   NativeScrollEvent,
   NativeSyntheticEvent,
   PressableProps,
-  FlatListProps,
   ScrollViewProps,
   StyleProp,
   View,
@@ -16,11 +16,13 @@ import { TextInputProps } from 'react-native-paper';
 export type DropdownInputProps = {
   placeholder?: string;
   label?: TextInputLabelProp;
-  rightIcon: JSX.Element;
+  rightIcon: ReactElement;
   selectedLabel?: string;
   mode?: 'flat' | 'outlined';
   disabled?: boolean;
   error?: boolean;
+  style?: StyleProp<ViewStyle>;
+  outlineStyle?: StyleProp<ViewStyle>;
 };
 
 export type Option = {
@@ -33,20 +35,22 @@ export type DropdownProps = {
   menuTestID?: string;
   value?: string;
   options: Option[];
-  menuUpIcon?: JSX.Element;
-  menuDownIcon?: JSX.Element;
+  menuUpIcon?: ReactElement;
+  menuDownIcon?: ReactElement;
   maxMenuHeight?: number;
   menuContentStyle?: ViewStyle;
   listContainerStyle?: StyleProp<ViewStyle>;
+  inputStyle?: StyleProp<ViewStyle>;
+  inputOutlineStyle?: StyleProp<ViewStyle>;
   hideMenuHeader?: boolean;
   statusBarHeight?: number;
-  Touchable?: ForwardRefExoticComponent<
-    PressableProps & React.RefAttributes<View>
-  >;
+  menuAnchorPosition?: 'top' | 'bottom';
+  menuMode?: 'flat' | 'elevated';
+  Touchable?: ForwardRefExoticComponent<PressableProps & RefAttributes<View>>;
   onSelect?: (value?: string) => void;
-  CustomMenuHeader?: (props: DropdownHeaderProps) => JSX.Element;
-  CustomDropdownItem?: (props: DropdownItemProps) => JSX.Element;
-  CustomDropdownInput?: (props: DropdownInputProps) => JSX.Element;
+  CustomMenuHeader?: (props: DropdownHeaderProps) => ReactElement;
+  CustomDropdownItem?: (props: DropdownItemProps) => ReactElement;
+  CustomDropdownInput?: (props: DropdownInputProps) => ReactElement;
   onScroll?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
   onScrollBeginDrag?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
   onScrollEndDrag?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
@@ -61,22 +65,24 @@ export type MultiSelectDropdownProps = {
   menuTestID?: string;
   value: string[];
   options: Option[];
-  menuUpIcon?: JSX.Element;
-  menuDownIcon?: JSX.Element;
+  menuUpIcon?: ReactElement;
+  menuDownIcon?: ReactElement;
   maxMenuHeight?: number;
   menuContentStyle?: ViewStyle;
   listContainerStyle?: StyleProp<ViewStyle>;
   hideMenuHeader?: boolean;
   statusBarHeight?: number;
-  Touchable?: ForwardRefExoticComponent<
-    PressableProps & React.RefAttributes<View>
-  >;
+  menuAnchorPosition?: 'top' | 'bottom';
+  menuMode?: 'flat' | 'elevated';
+  inputStyle?: StyleProp<ViewStyle>;
+  inputOutlineStyle?: StyleProp<ViewStyle>;
+  Touchable?: ForwardRefExoticComponent<PressableProps & RefAttributes<View>>;
   onSelect?: (value: string[]) => void;
-  CustomMenuHeader?: (props: DropdownHeaderProps) => JSX.Element;
+  CustomMenuHeader?: (props: DropdownHeaderProps) => ReactElement;
   CustomMultiSelectDropdownItem?: (
     props: MultiSelectDropdownItemProps
-  ) => JSX.Element;
-  CustomMultiSelectDropdownInput?: (props: DropdownInputProps) => JSX.Element;
+  ) => ReactElement;
+  CustomMultiSelectDropdownInput?: (props: DropdownInputProps) => ReactElement;
   onScroll?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
   onScrollBeginDrag?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
   onScrollEndDrag?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;

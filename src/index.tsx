@@ -7,10 +7,10 @@ import {
   DropdownInputProps,
   DropdownItemProps,
   DropdownProps,
-  Option,
-  MultiSelectDropdownProps,
-  MultiSelectDropdownItemProps,
   DropdownRef,
+  MultiSelectDropdownItemProps,
+  MultiSelectDropdownProps,
+  Option,
 } from './types';
 
 export {
