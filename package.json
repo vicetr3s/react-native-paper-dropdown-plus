@@ -1,6 +1,6 @@
 {
   "name": "react-native-paper-dropdown-plus",
-  "version": "2.3.1",
+  "version": "2.3.2",
   "description": "Dropdown component using React Native Paper TextInput and Menu, now also with multiselect. This is a maintained fork of the original package by @fateh999.",
   "source": "./src/index.tsx",
   "main": "./lib/commonjs/index.js",
