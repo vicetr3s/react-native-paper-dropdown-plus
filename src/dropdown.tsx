@@ -1,5 +1,12 @@
-import { FlatList, Platform, ScrollView, StatusBar, View } from 'react-native';
-import { Menu, TextInput, TouchableRipple } from 'react-native-paper';
+import {
+  FlatList,
+  Platform,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  View,
+} from 'react-native';
+import { Menu, TextInput, TouchableRipple, useTheme } from 'react-native-paper';
 import DropdownItem from './dropdown-item';
 import DropdownInput from './dropdown-input';
 import { DropdownProps, DropdownRef, Option } from './types';
@@ -44,6 +51,7 @@ function Dropdown(props: DropdownProps, ref: Ref<DropdownRef>) {
     headerTitle,
     headerTitleStyle,
     headerStyle,
+    highlightBorderOnFocus = false,
     onSelect,
     onScroll,
     onScrollBeginDrag,
@@ -62,8 +70,26 @@ function Dropdown(props: DropdownProps, ref: Ref<DropdownRef>) {
     defaultListStyle,
     dropdownLayout,
   } = useDropdown(maxMenuHeight);
+  const theme = useTheme();
   const rightIcon = enable ? menuUpIcon : menuDownIcon;
   const contentStyle = useMemo(() => ({ paddingVertical: 0 }), []);
+  const flattenedOutlineStyle = useMemo(() => {
+    if (highlightBorderOnFocus && mode === 'outlined' && enable) {
+      return {
+        borderColor: theme.colors.primary,
+        borderWidth: 2,
+        ...StyleSheet.flatten(inputOutlineStyle),
+      };
+    }
+
+    return inputOutlineStyle;
+  }, [
+    highlightBorderOnFocus,
+    mode,
+    enable,
+    inputOutlineStyle,
+    theme.colors.primary,
+  ]);
 
   useImperativeHandle(ref, () => ({
     focus() {
@@ -129,7 +155,7 @@ function Dropdown(props: DropdownProps, ref: Ref<DropdownRef>) {
               disabled={disabled}
               error={error}
               style={inputStyle}
-              outlineStyle={inputOutlineStyle}
+              outlineStyle={flattenedOutlineStyle}
             />
           </View>
         </Touchable>

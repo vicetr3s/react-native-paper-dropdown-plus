@@ -46,6 +46,7 @@ export type DropdownProps = {
   headerTitle?: ReactElement | string;
   headerTitleStyle?: StyleProp<TextStyle>;
   headerStyle?: StyleProp<ViewStyle>;
+  highlightBorderOnFocus?: boolean;
   hideMenuHeader?: boolean;
   statusBarHeight?: number;
   menuAnchorPosition?: 'top' | 'bottom';
