@@ -56,6 +56,8 @@ function Dropdown(props: DropdownProps, ref: Ref<DropdownRef>) {
     onScroll,
     onScrollBeginDrag,
     onScrollEndDrag,
+    onOpen,
+    onClose,
     CustomDropdownItem = DropdownItem,
     CustomDropdownInput = DropdownInput,
     CustomMenuHeader = DropdownHeader,
@@ -105,6 +107,11 @@ function Dropdown(props: DropdownProps, ref: Ref<DropdownRef>) {
     toggleMenu();
   }, [onSelect, toggleMenu]);
 
+  const handleDismiss = useCallback(() => {
+    toggleMenu();
+    onClose?.();
+  }, [toggleMenu, onClose]);
+
   const renderDropdownItem = useCallback(
     (option: Option, index: number) => (
       <CustomDropdownItem
@@ -134,7 +141,7 @@ function Dropdown(props: DropdownProps, ref: Ref<DropdownRef>) {
       mode={menuMode}
       statusBarHeight={statusBarHeight}
       visible={enable}
-      onDismiss={toggleMenu}
+      onDismiss={handleDismiss}
       style={menuStyle}
       keyboardShouldPersistTaps={'handled'}
       anchorPosition={menuAnchorPosition}
@@ -142,7 +149,10 @@ function Dropdown(props: DropdownProps, ref: Ref<DropdownRef>) {
         <Touchable
           testID={testID}
           disabled={disabled}
-          onPress={toggleMenu}
+          onPress={() => {
+            onOpen?.();
+            toggleMenu();
+          }}
           onLayout={onLayout}
         >
           <View pointerEvents="none">

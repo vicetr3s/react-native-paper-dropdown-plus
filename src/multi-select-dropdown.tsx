@@ -51,6 +51,8 @@ function MultiSelectDropdown(
     onScroll,
     onScrollBeginDrag,
     onScrollEndDrag,
+    onOpen,
+    onClose,
     CustomMultiSelectDropdownItem = MultiSelectDropdownItem,
     CustomMultiSelectDropdownInput = DropdownInput,
     CustomMenuHeader = DropdownHeader,
@@ -116,7 +118,10 @@ function MultiSelectDropdown(
       mode={menuMode}
       testID={menuTestID}
       visible={enable}
-      onDismiss={toggleMenu}
+      onDismiss={() => {
+        toggleMenu();
+        onClose?.();
+      }}
       style={menuStyle}
       statusBarHeight={statusBarHeight}
       keyboardShouldPersistTaps={'handled'}
@@ -125,7 +130,10 @@ function MultiSelectDropdown(
         <Touchable
           testID={testID}
           disabled={disabled}
-          onPress={toggleMenu}
+          onPress={() => {
+            onOpen?.();
+            toggleMenu();
+          }}
           onLayout={onLayout}
         >
           <View pointerEvents="none">

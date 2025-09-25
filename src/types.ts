@@ -59,6 +59,8 @@ export type DropdownProps = {
   onScroll?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
   onScrollBeginDrag?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
   onScrollEndDrag?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
+  onOpen?: () => void;
+  onClose?: () => void;
 } & Pick<
   TextInputProps,
   'placeholder' | 'label' | 'mode' | 'disabled' | 'error'
@@ -94,6 +96,8 @@ export type MultiSelectDropdownProps = {
   onScroll?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
   onScrollBeginDrag?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
   onScrollEndDrag?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
+  onOpen?: () => void;
+  onClose?: () => void;
 } & Pick<
   TextInputProps,
   'placeholder' | 'label' | 'mode' | 'disabled' | 'error'
