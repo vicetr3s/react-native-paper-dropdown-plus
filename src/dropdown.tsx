@@ -149,8 +149,13 @@ function Dropdown(props: DropdownProps, ref: Ref<DropdownRef>) {
         <Touchable
           testID={testID}
           disabled={disabled}
-          onPress={() => {
-            onOpen?.();
+          onPress={async () => {
+            try {
+              await onOpen?.();
+            } catch {}
+            await new Promise<void>((resolve) =>
+              requestAnimationFrame(() => resolve())
+            );
             toggleMenu();
           }}
           onLayout={onLayout}

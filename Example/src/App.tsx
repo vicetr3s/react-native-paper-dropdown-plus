@@ -9,17 +9,18 @@ import {
   MD3LightTheme,
   PaperProvider,
   Paragraph,
+  Text,
   TextInput,
   ThemeProvider,
   TouchableRipple,
 } from 'react-native-paper';
 import {
   Dropdown,
-  MultiSelectDropdown,
   DropdownInputProps,
   DropdownItemProps,
   DropdownRef,
-} from 'react-native-paper-dropdown';
+  MultiSelectDropdown,
+} from 'react-native-paper-dropdown-plus';
 
 const OPTIONS = [
   { label: 'Male', value: 'male' },
@@ -161,14 +162,26 @@ export default function App() {
                 Default Dropdown (Outline Mode also FlatList)
               </Paragraph>
               <Dropdown
-                label={'Gender'}
+                headerTitle={
+                  <Text variant={'bodyLarge'}>
+                    Seleccioname alguna de estas
+                  </Text>
+                }
                 placeholder="Select Gender"
                 options={OPTIONS}
                 value={gender}
                 onSelect={setGender}
                 mode="outlined"
+                menuMode={'elevated'}
+                inputStyle={{ height: 45, maxHeight: 45 }}
+                inputOutlineStyle={{
+                  borderRadius: 10,
+                }}
+                menuContentStyle={{ borderRadius: 10, marginTop: 10 }}
+                highlightBorderOnFocus={true}
                 isFlatList
               />
+              <TextInput mode={'outlined'} />
               <View style={styles.spacer} />
               <Paragraph>Custom Dropdown</Paragraph>
               <Dropdown
@@ -205,7 +218,6 @@ export default function App() {
               <View style={styles.spacer} />
               <Paragraph>Default Dropdown</Paragraph>
               <MultiSelectDropdown
-                label={'Colors'}
                 placeholder="Select Colors"
                 options={MULTI_SELECT_OPTIONS}
                 value={colors}
@@ -222,6 +234,8 @@ export default function App() {
                 value={colors}
                 onSelect={setColors}
                 mode={'outlined'}
+                menuMode={'elevated'}
+                menuAnchorPosition={'top'}
                 isFlatList
               />
 

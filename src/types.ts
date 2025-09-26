@@ -24,6 +24,8 @@ export type DropdownInputProps = {
   error?: boolean;
   style?: StyleProp<ViewStyle>;
   outlineStyle?: StyleProp<ViewStyle>;
+  onOpen?: () => void | Promise<void>;
+  onClose?: () => void | Promise<void>;
 };
 
 export type Option = {
@@ -59,8 +61,8 @@ export type DropdownProps = {
   onScroll?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
   onScrollBeginDrag?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
   onScrollEndDrag?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
-  onOpen?: () => void;
-  onClose?: () => void;
+  onOpen?: () => void | Promise<void>;
+  onClose?: () => void | Promise<void>;
 } & Pick<
   TextInputProps,
   'placeholder' | 'label' | 'mode' | 'disabled' | 'error'
@@ -96,8 +98,8 @@ export type MultiSelectDropdownProps = {
   onScroll?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
   onScrollBeginDrag?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
   onScrollEndDrag?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
-  onOpen?: () => void;
-  onClose?: () => void;
+  onOpen?: () => void | Promise<void>;
+  onClose?: () => void | Promise<void>;
 } & Pick<
   TextInputProps,
   'placeholder' | 'label' | 'mode' | 'disabled' | 'error'
