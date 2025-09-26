@@ -76,6 +76,20 @@ function MultiSelectDropdown(
     dropdownLayout,
   } = useDropdown(maxMenuHeight);
   const rightIcon = enable ? menuUpIcon : menuDownIcon;
+  const baseContentStyle = useMemo(() => ({ paddingVertical: 0 }), []);
+  const normalizedMenuContentStyle = useMemo(() => {
+    if (!menuContentStyle) return undefined;
+    if (menuAnchorPosition === 'top') {
+      const { marginTop, margin, ...rest } = (menuContentStyle as any) ?? {};
+      const adjusted: any = { ...rest };
+      if (typeof marginTop !== 'undefined') adjusted.marginBottom = marginTop;
+      if (typeof margin !== 'undefined' && typeof marginTop === 'undefined')
+        adjusted.marginBottom = margin;
+      adjusted.marginTop = undefined;
+      return adjusted as typeof menuContentStyle;
+    }
+    return menuContentStyle;
+  }, [menuContentStyle, menuAnchorPosition]);
 
   useImperativeHandle(ref, () => ({
     focus() {
@@ -132,7 +146,7 @@ function MultiSelectDropdown(
           disabled={disabled}
           onPress={async () => {
             try {
-              await onOpen?.();
+              await Promise.resolve(onOpen?.());
             } catch {}
             await new Promise<void>((resolve) =>
               requestAnimationFrame(() => resolve())
@@ -156,7 +170,7 @@ function MultiSelectDropdown(
           </View>
         </Touchable>
       }
-      contentStyle={menuContentStyle}
+      contentStyle={[baseContentStyle, normalizedMenuContentStyle]}
     >
       {!hideMenuHeader && (
         <CustomMenuHeader

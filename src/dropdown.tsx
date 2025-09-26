@@ -74,7 +74,20 @@ function Dropdown(props: DropdownProps, ref: Ref<DropdownRef>) {
   } = useDropdown(maxMenuHeight);
   const theme = useTheme();
   const rightIcon = enable ? menuUpIcon : menuDownIcon;
-  const contentStyle = useMemo(() => ({ paddingVertical: 0 }), []);
+  const baseContentStyle = useMemo(() => ({ paddingVertical: 0 }), []);
+  const normalizedMenuContentStyle = useMemo(() => {
+    if (!menuContentStyle) return undefined;
+    if (menuAnchorPosition === 'top') {
+      const { marginTop, margin, ...rest } = (menuContentStyle as any) ?? {};
+      const adjusted: any = { ...rest };
+      if (typeof marginTop !== 'undefined') adjusted.marginBottom = marginTop;
+      if (typeof margin !== 'undefined' && typeof marginTop === 'undefined')
+        adjusted.marginBottom = margin;
+      adjusted.marginTop = undefined;
+      return adjusted as typeof menuContentStyle;
+    }
+    return menuContentStyle;
+  }, [menuContentStyle, menuAnchorPosition]);
   const flattenedOutlineStyle = useMemo(() => {
     if (highlightBorderOnFocus && mode === 'outlined' && enable) {
       return {
@@ -175,7 +188,7 @@ function Dropdown(props: DropdownProps, ref: Ref<DropdownRef>) {
           </View>
         </Touchable>
       }
-      contentStyle={[contentStyle, menuContentStyle]}
+      contentStyle={[baseContentStyle, normalizedMenuContentStyle]}
       testID={menuTestID}
     >
       {!hideMenuHeader && (
