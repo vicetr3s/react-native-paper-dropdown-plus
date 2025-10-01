@@ -21,8 +21,19 @@ function useDropdown(maxMenuHeight?: number, maxHeightFraction: number = 2.5) {
 
   const toggleMenu = useCallback(() => {
     Keyboard.dismiss();
-    setEnable((prev) => !prev);
-  }, []);
+
+    setEnable((prev) => {
+      if (!prev && dropdownLayout.width === 0) {
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            setEnable(true);
+          });
+        });
+        return false;
+      }
+      return !prev;
+    });
+  }, [dropdownLayout.width]);
 
   const onLayout = useCallback(
     ({ nativeEvent: { layout } }: LayoutChangeEvent) => {
