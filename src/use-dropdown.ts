@@ -31,12 +31,13 @@ function useDropdown(maxMenuHeight?: number, maxHeightFraction: number = 2.5) {
     []
   );
 
-  const menuStyle: ViewStyle = useMemo(
-    () => ({
-      width: dropdownLayout.width,
-    }),
-    [dropdownLayout.width]
-  );
+  const menuStyle: ViewStyle = useMemo(() => {
+    const style: ViewStyle = {};
+    if (dropdownLayout.width > 0) {
+      style.width = dropdownLayout.width;
+    }
+    return style;
+  }, [dropdownLayout.width]);
 
   const defaultListStyle: ViewStyle = useMemo(
     () => ({

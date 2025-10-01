@@ -149,44 +149,48 @@ function Dropdown(props: DropdownProps, ref: Ref<DropdownRef>) {
     ]
   );
 
+  const isAnchorMeasured =
+    dropdownLayout.width > 0 && dropdownLayout.height >= 0;
+
   return (
     <Menu
       mode={menuMode}
       statusBarHeight={statusBarHeight}
-      visible={enable}
+      visible={enable && isAnchorMeasured}
       onDismiss={handleDismiss}
       style={menuStyle}
       keyboardShouldPersistTaps={'handled'}
       anchorPosition={menuAnchorPosition}
       anchor={
-        <Touchable
-          testID={testID}
-          disabled={disabled}
-          onPress={async () => {
-            try {
-              await onOpen?.();
-            } catch {}
-            await new Promise<void>((resolve) =>
-              requestAnimationFrame(() => resolve())
-            );
-            toggleMenu();
-          }}
-          onLayout={onLayout}
-        >
-          <View pointerEvents="none">
-            <CustomDropdownInput
-              placeholder={placeholder}
-              label={label}
-              rightIcon={rightIcon}
-              selectedLabel={selectedLabel}
-              mode={mode}
-              disabled={disabled}
-              error={error}
-              style={inputStyle}
-              outlineStyle={flattenedOutlineStyle}
-            />
-          </View>
-        </Touchable>
+        <View collapsable={false} onLayout={onLayout}>
+          <Touchable
+            testID={testID}
+            disabled={disabled}
+            onPress={async () => {
+              try {
+                await onOpen?.();
+              } catch {}
+              await new Promise<void>((resolve) =>
+                requestAnimationFrame(() => resolve())
+              );
+              toggleMenu();
+            }}
+          >
+            <View pointerEvents="none">
+              <CustomDropdownInput
+                placeholder={placeholder}
+                label={label}
+                rightIcon={rightIcon}
+                selectedLabel={selectedLabel}
+                mode={mode}
+                disabled={disabled}
+                error={error}
+                style={inputStyle}
+                outlineStyle={flattenedOutlineStyle}
+              />
+            </View>
+          </Touchable>
+        </View>
       }
       contentStyle={[baseContentStyle, normalizedMenuContentStyle]}
       testID={menuTestID}
