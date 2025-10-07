@@ -150,7 +150,7 @@ function Dropdown(props: DropdownProps, ref: Ref<DropdownRef>) {
   );
 
   const isAnchorMeasured =
-    dropdownLayout.width > 0 && dropdownLayout.height >= 0;
+    dropdownLayout.width > 0 && dropdownLayout.height > 0;
 
   return (
     <Menu

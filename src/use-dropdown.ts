@@ -23,12 +23,14 @@ function useDropdown(maxMenuHeight?: number, maxHeightFraction: number = 2.5) {
     Keyboard.dismiss();
 
     setEnable((prev) => {
+      // If opening and layout not measured yet, wait for measurement
       if (!prev && dropdownLayout.width === 0) {
-        requestAnimationFrame(() => {
+        // Use a single RAF with a small delay to ensure layout is measured
+        setTimeout(() => {
           requestAnimationFrame(() => {
             setEnable(true);
           });
-        });
+        }, 0);
         return false;
       }
       return !prev;
@@ -47,6 +49,9 @@ function useDropdown(maxMenuHeight?: number, maxHeightFraction: number = 2.5) {
     if (dropdownLayout.width > 0) {
       style.width = dropdownLayout.width;
     }
+    // Ensure menu is positioned correctly from the start
+    style.minWidth =
+      dropdownLayout.width > 0 ? dropdownLayout.width : undefined;
     return style;
   }, [dropdownLayout.width]);
 
