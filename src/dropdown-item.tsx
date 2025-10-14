@@ -4,11 +4,19 @@ import { Fragment } from 'react/jsx-runtime';
 import { DropdownItemProps } from './types';
 
 function DropdownItem(props: DropdownItemProps) {
-  const { option, width, value, onSelect, toggleMenu, isLast, menuItemTestID } =
-    props;
+  const {
+    option,
+    width,
+    value,
+    onSelect,
+    toggleMenu,
+    isLast,
+    menuItemTestID,
+    menuItemProps,
+  } = props;
   const style = useMemo(() => ({ minWidth: width }), [width]);
   const theme = useTheme();
-  const titleStyle = useMemo(
+  const defaultTitleStyle = useMemo(
     () => ({
       color:
         value === option.value ? theme.colors.primary : theme.colors.onSurface,
@@ -16,6 +24,22 @@ function DropdownItem(props: DropdownItemProps) {
     }),
     [option.value, theme.colors.onSurface, theme.colors.primary, value, width]
   );
+
+  const mergedTitleStyle = useMemo(
+    () => [defaultTitleStyle, menuItemProps?.titleStyle],
+    [defaultTitleStyle, menuItemProps?.titleStyle]
+  );
+
+  const mergedStyle = useMemo(
+    () => [style, menuItemProps?.style],
+    [style, menuItemProps?.style]
+  );
+
+  const mergedContentStyle = useMemo(
+    () => [style, menuItemProps?.contentStyle],
+    [style, menuItemProps?.contentStyle]
+  );
+
   const onPress = () => {
     if (option.value) {
       onSelect?.(option.value);
@@ -26,10 +50,12 @@ function DropdownItem(props: DropdownItemProps) {
   return (
     <Fragment>
       <Menu.Item
-        style={style}
+        style={mergedStyle}
         title={option.label}
-        titleStyle={titleStyle}
-        contentStyle={style}
+        titleStyle={mergedTitleStyle}
+        titleMaxFontSizeMultiplier={menuItemProps?.titleMaxFontSizeMultiplier}
+        contentStyle={mergedContentStyle}
+        containerStyle={menuItemProps?.containerStyle}
         onPress={onPress}
         testID={menuItemTestID}
       />

@@ -61,6 +61,7 @@ function Dropdown(props: DropdownProps, ref: Ref<DropdownRef>) {
     CustomDropdownItem = DropdownItem,
     CustomDropdownInput = DropdownInput,
     CustomMenuHeader = DropdownHeader,
+    menuItemProps,
   } = props;
   const selectedLabel = options.find((option) => option.value === value)?.label;
   const {
@@ -136,6 +137,7 @@ function Dropdown(props: DropdownProps, ref: Ref<DropdownRef>) {
         onSelect={onSelect}
         isLast={options.length <= index + 1}
         menuItemTestID={menuTestID ? `${menuTestID}-${option.value}` : ''}
+        menuItemProps={menuItemProps}
       />
     ),
     [
@@ -146,6 +148,7 @@ function Dropdown(props: DropdownProps, ref: Ref<DropdownRef>) {
       options,
       menuTestID,
       CustomDropdownItem,
+      menuItemProps,
     ]
   );
 

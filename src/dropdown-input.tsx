@@ -12,6 +12,9 @@ function DropdownInput(props: DropdownInputProps) {
     error,
     style,
     outlineStyle,
+    allowFontScaling,
+    maxFontSizeMultiplier,
+    ...rest
   } = props;
 
   return (
@@ -26,6 +29,9 @@ function DropdownInput(props: DropdownInputProps) {
       error={error}
       style={style}
       outlineStyle={outlineStyle}
+      allowFontScaling={allowFontScaling}
+      maxFontSizeMultiplier={maxFontSizeMultiplier}
+      {...rest}
     />
   );
 }

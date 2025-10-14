@@ -24,9 +24,11 @@ export type DropdownInputProps = {
   error?: boolean;
   style?: StyleProp<ViewStyle>;
   outlineStyle?: StyleProp<ViewStyle>;
+  allowFontScaling?: boolean;
+  maxFontSizeMultiplier?: number;
   onOpen?: () => void | Promise<void>;
   onClose?: () => void | Promise<void>;
-};
+} & Omit<TextInputProps, 'value' | 'onChangeText' | 'editable' | 'right'>;
 
 export type Option = {
   label: string;
@@ -63,6 +65,13 @@ export type DropdownProps = {
   onScrollEndDrag?: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
   onOpen?: () => void | Promise<void>;
   onClose?: () => void | Promise<void>;
+  menuItemProps?: {
+    titleMaxFontSizeMultiplier?: number;
+    style?: StyleProp<ViewStyle>;
+    containerStyle?: StyleProp<ViewStyle>;
+    contentStyle?: StyleProp<ViewStyle>;
+    titleStyle?: StyleProp<TextStyle>;
+  };
 } & Pick<
   TextInputProps,
   'placeholder' | 'label' | 'mode' | 'disabled' | 'error'
@@ -114,6 +123,13 @@ export type DropdownItemProps = {
   toggleMenu: () => void;
   isLast: boolean;
   menuItemTestID?: string;
+  menuItemProps?: {
+    titleMaxFontSizeMultiplier?: number;
+    style?: StyleProp<ViewStyle>;
+    containerStyle?: StyleProp<ViewStyle>;
+    contentStyle?: StyleProp<ViewStyle>;
+    titleStyle?: StyleProp<TextStyle>;
+  };
 };
 
 export type MultiSelectDropdownItemProps = {
